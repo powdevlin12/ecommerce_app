@@ -1,0 +1,29 @@
+import 'package:ercomerce_app/routes/route_type.dart';
+import 'package:ercomerce_app/routes/separated/auth_route.dart';
+import 'package:flutter/material.dart';
+
+class Routes {
+  static Map<String, RouteType> _resolveRoutes() {
+    return {...authRoutes};
+  }
+
+  static Route onGenerateRoutes(RouteSettings settings) {
+    print(settings);
+    var routes = _resolveRoutes();
+    try {
+      final child = routes[settings.name];
+
+      Widget builder(BuildContext c) => child!(c, settings);
+
+      // if (settings.name == AppRoutes.login) {
+      //   return SlideRoute(builder: builder);
+      // }
+
+      return MaterialPageRoute(
+        builder: builder,
+      );
+    } catch (e) {
+      throw const FormatException("--- Route doesn't exist");
+    }
+  }
+}
