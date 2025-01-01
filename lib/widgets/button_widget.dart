@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
-  final String? backgroundColor;
+  final Color? backgroundColor;
   final Color? textColor;
   final double? borderRadius;
   final double? height;
@@ -17,7 +17,7 @@ class ButtonWidget extends StatelessWidget {
       {super.key,
       required this.text,
       required this.onPressed,
-      this.backgroundColor = primaryColor,
+      this.backgroundColor,
       this.textColor = Colors.white,
       this.borderRadius = 32.0,
       this.height = 50.0,
@@ -33,7 +33,7 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: hexToColor(backgroundColor!),
+          backgroundColor: (backgroundColor ?? primaryColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius!),
           ),

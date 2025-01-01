@@ -50,6 +50,7 @@ class _SignupState extends State<Signup> {
           _loadingSignUp = StatusState.loadCompleted;
         });
         showMyDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             onPressed: () {
               Navigator.pop(context);
@@ -61,6 +62,7 @@ class _SignupState extends State<Signup> {
           _loadingSignUp = StatusState.loadFailed;
         });
         showMyDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             onPressed: () {
               Navigator.pop(context);
@@ -169,7 +171,7 @@ class _SignupState extends State<Signup> {
                         TextSpan(
                           text: 'Reset',
                           style: TextStyle(
-                            color: hexToColor(primaryColor),
+                            color: (primaryColor),
                             fontWeight: FontWeight.bold,
                           ),
                         ),

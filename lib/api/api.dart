@@ -14,7 +14,7 @@ class Api {
 
   static String localHost() {
     // return "restaurantbe-production.up.railway.app";
-    return "172.16.2.6:3012";
+    return "192.168.1.7:3012";
   }
 
   static String branchGetter() {
