@@ -8,7 +8,6 @@ class Routes {
   }
 
   static Route onGenerateRoutes(RouteSettings settings) {
-    print(settings);
     var routes = _resolveRoutes();
     try {
       final child = routes[settings.name];

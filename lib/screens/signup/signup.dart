@@ -3,6 +3,8 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/routes/app_routes.dart';
+import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
 import 'package:ercomerce_app/widgets/back_button_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
@@ -43,19 +45,36 @@ class _SignupState extends State<Signup> {
       ResultModel result =
           await Api.requestSignUp(email: email, name: name, password: password);
 
-      print(result.toString());
       if (result.isSuccess) {
         setState(() {
           _loadingSignUp = StatusState.loadCompleted;
         });
-        print("Đăng ký thành công");
+        showMyDialog(
+            context: context,
+            onPressed: () {
+              Navigator.pop(context);
+              // _onGoToLogin();
+            },
+            content: "Đăng ký thành công !");
       } else {
         setState(() {
           _loadingSignUp = StatusState.loadFailed;
         });
-        print("Đăng ký thất bại");
+        showMyDialog(
+            context: context,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            content: "Đăng ký thất bại !");
       }
     }
+  }
+
+  void _onGoToLogin() {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.login,
+    );
   }
 
   @override
@@ -69,7 +88,9 @@ class _SignupState extends State<Signup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Back button
-              const BackButtonWidget(),
+              BackButtonWidget(
+                onPressed: _onGoToLogin,
+              ),
               const SizedBox(height: 16),
 
               // Title
@@ -139,9 +160,7 @@ class _SignupState extends State<Signup> {
               // Forgot Password
               Center(
                 child: GestureDetector(
-                  onTap: () {
-                    // Navigate to reset password screen
-                  },
+                  onTap: _onGoToLogin,
                   child: Text.rich(
                     TextSpan(
                       text: 'Forgot Password? ',
