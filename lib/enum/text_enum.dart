@@ -1,0 +1,1 @@
+enum TextType { title, normal }

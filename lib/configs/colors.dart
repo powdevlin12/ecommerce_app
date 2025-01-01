@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 const String primaryColor = "#8E6CEF";
 const Color subColor = Color(0XFFFFC30E);
-const Color backgroundColor = Color(0xFFF5F5F5);
-const Color subBgColor = Color(0XFF343434);
+const String backgroundColor = "#FFFFFF";
+const String subBgColor = "#F4F4F4";
 const String inputBackgroundColor = "#F4F4F4";
 const Color textColor = Color(0XFF000000);
 const Color subTextColor = Color(0xFF9C9C9C);
