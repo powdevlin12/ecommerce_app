@@ -3,19 +3,20 @@ import 'package:ercomerce_app/utils/parse_type_value.dart';
 class ResultModel {
   final bool isSuccess;
   final String message;
-  final dynamic data;
+  final dynamic metadata;
   dynamic attrs;
   dynamic parent;
   final bool isCancelled;
+  final int? statusCode;
 
-  ResultModel({
-    required this.isSuccess,
-    required this.message,
-    this.isCancelled = false,
-    this.data,
-    this.attrs,
-    this.parent,
-  });
+  ResultModel(
+      {required this.isSuccess,
+      required this.message,
+      this.isCancelled = false,
+      this.metadata,
+      this.attrs,
+      this.parent,
+      this.statusCode});
 
   factory ResultModel.cancelItem() {
     return ResultModel(
@@ -40,13 +41,15 @@ class ResultModel {
       return ResultModel.empty();
     }
     Map<String, dynamic> json = jsonObj;
-    return ResultModel(
-      isSuccess: ParseTypeData.ensureBool(json['isSuccess']),
-      message: ParseTypeData.ensureString(
-          (json['message'] ?? json['msg']) ?? 'Error'),
-      data: json.containsKey('rows') ? json['rows'] : json['data'],
-      attrs: json.containsKey('attrs') ? json['attrs'] : json['attr'],
-      parent: json['parent'],
-    );
+
+    ResultModel result = ResultModel(
+        isSuccess: ParseTypeData.ensureBool(json['isSuccess']),
+        message: ParseTypeData.ensureString(
+            (json['message'] ?? json['msg']) ?? 'Error'),
+        metadata: json.containsKey('metadata') ? json['metadata'] : null,
+        attrs: json.containsKey('attrs') ? json['attrs'] : json['attr'],
+        parent: json['parent'],
+        statusCode: json.containsKey('statusCode') ? json['statusCode'] : null);
+    return result;
   }
 }

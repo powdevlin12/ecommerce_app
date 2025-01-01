@@ -165,11 +165,11 @@ class _SignupState extends State<Signup> {
                   onTap: _onGoToLogin,
                   child: Text.rich(
                     TextSpan(
-                      text: 'Forgot Password? ',
+                      text: 'Bạn quên mật khẩu? ',
                       style: const TextStyle(color: Colors.black),
                       children: [
                         TextSpan(
-                          text: 'Reset',
+                          text: 'Khôi phục ngay',
                           style: TextStyle(
                             color: (primaryColor),
                             fontWeight: FontWeight.bold,

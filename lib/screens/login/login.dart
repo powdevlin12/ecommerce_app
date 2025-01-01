@@ -1,6 +1,11 @@
+import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
+import 'package:ercomerce_app/models/client/login_succes_model.dart';
+import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
+import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:ercomerce_app/widgets/screen_widget.dart';
 import 'package:ercomerce_app/widgets/text_field_widget.dart';
@@ -19,12 +24,49 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final double spacing = 16.0;
+  StatusState _loadingLogin = StatusState.init;
+  String tagRequestLogin = "";
 
   void _onGoToRegister() {
     Navigator.pushNamed(
       context,
       AppRoutes.signUp,
     );
+  }
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text;
+      final password = _passwordController.text;
+
+      tagRequestLogin = Api.buildIncreaseTagRequestWithID("login");
+      setState(() {
+        _loadingLogin = StatusState.loading;
+      });
+
+      ResultModel result =
+          await Api.requestLogin(email: email, password: password);
+
+      if (result.isSuccess) {
+        LoginSuccess data = LoginSuccess.fromJson(result.metadata);
+
+        setState(() {
+          _loadingLogin = StatusState.loadCompleted;
+        });
+      } else {
+        showMyDialog(
+            // ignore: use_build_context_synchronously
+            context: context,
+            onPressed: () {
+              Navigator.pop(context);
+              // _onGoToLogin();
+            },
+            content: "Vui lòng kiểm tra lại tài khoản của bạn !");
+        setState(() {
+          _loadingLogin = StatusState.loadFailed;
+        });
+      }
+    }
   }
 
   @override
@@ -74,8 +116,8 @@ class _LoginState extends State<Login> {
               ),
               ButtonWidget(
                 text: 'Đăng nhập',
-                onPressed: () {},
-                isLoading: false,
+                onPressed: _submitForm,
+                isLoading: _loadingLogin == StatusState.loading,
               ),
               SizedBox(
                 height: spacing,

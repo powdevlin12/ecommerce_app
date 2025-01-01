@@ -37,6 +37,7 @@ class TextFieldWidget extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         hintText: hintText ?? "",
+        hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
         border: OutlineInputBorder(

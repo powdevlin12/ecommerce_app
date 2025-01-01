@@ -60,4 +60,18 @@ class Api {
     );
     return ResultModel.fromJson(result);
   }
+
+  static Future<ResultModel> requestLogin({
+    String email = "",
+    String password = "",
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    var params = {"email": email, "password": password, "refreshToken": ""};
+    final result = await httpManager.post(
+      url: appendBranch(loginUrl),
+      data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
 }
