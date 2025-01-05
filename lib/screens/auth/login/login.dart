@@ -4,7 +4,6 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
-import 'package:ercomerce_app/main.dart';
 import 'package:ercomerce_app/models/client/login_succes_model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
@@ -40,6 +39,14 @@ class _LoginState extends State<Login> {
     );
   }
 
+  void _onGoToHome() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.home,
+      (route) => false,
+    );
+  }
+
   Future<void> _submitForm(String domain) async {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
@@ -63,6 +70,7 @@ class _LoginState extends State<Login> {
       if (result.isSuccess) {
         LoginSuccess data = LoginSuccess.fromJson(result.metadata);
 
+        _onGoToHome();
         setState(() {
           _loadingLogin = StatusState.loadCompleted;
         });

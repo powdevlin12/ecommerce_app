@@ -1,10 +1,11 @@
 import 'package:ercomerce_app/routes/route_type.dart';
 import 'package:ercomerce_app/routes/separated/auth_route.dart';
+import 'package:ercomerce_app/routes/separated/main_route.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
   static Map<String, RouteType> _resolveRoutes() {
-    return {...authRoutes};
+    return {...authRoutes, ...mainRoutes};
   }
 
   static Route onGenerateRoutes(RouteSettings settings) {
