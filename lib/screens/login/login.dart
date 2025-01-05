@@ -1,7 +1,10 @@
 import 'package:ercomerce_app/api/api.dart';
+import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
+import 'package:ercomerce_app/main.dart';
 import 'package:ercomerce_app/models/client/login_succes_model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
@@ -11,6 +14,7 @@ import 'package:ercomerce_app/widgets/screen_widget.dart';
 import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,6 +27,8 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _domainController = TextEditingController();
+
   final double spacing = 16.0;
   StatusState _loadingLogin = StatusState.init;
   String tagRequestLogin = "";
@@ -34,15 +40,22 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Future<void> _submitForm() async {
+  Future<void> _submitForm(String domain) async {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
       final password = _passwordController.text;
+      final domain = _domainController.text;
 
       tagRequestLogin = Api.buildIncreaseTagRequestWithID("login");
+
       setState(() {
         _loadingLogin = StatusState.loading;
       });
+
+      await context.read<DomainCubit>().updateDomain(domain);
+
+      final savedDomain = await UserPreferences.getDomain();
+      Api.domain = savedDomain;
 
       ResultModel result =
           await Api.requestLogin(email: email, password: password);
@@ -61,7 +74,7 @@ class _LoginState extends State<Login> {
               Navigator.pop(context);
               // _onGoToLogin();
             },
-            content: "Vui lòng kiểm tra lại tài khoản của bạn !");
+            content: result.message);
         setState(() {
           _loadingLogin = StatusState.loadFailed;
         });
@@ -72,8 +85,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return ScreenWidget(
-        paddingTop: 68,
-        child: Form(
+      paddingTop: 68,
+      child: BlocBuilder<DomainCubit, String>(builder: (context, domain) {
+        return Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,6 +98,10 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(
                 height: spacing * 1.5,
+              ),
+              TextFieldWidget(
+                hintText: 'Nhập tên miền...',
+                controller: _domainController,
               ),
               SizedBox(
                 height: spacing,
@@ -116,7 +134,9 @@ class _LoginState extends State<Login> {
               ),
               ButtonWidget(
                 text: 'Đăng nhập',
-                onPressed: _submitForm,
+                onPressed: () {
+                  _submitForm(domain);
+                },
                 isLoading: _loadingLogin == StatusState.loading,
               ),
               SizedBox(
@@ -142,6 +162,8 @@ class _LoginState extends State<Login> {
               )
             ],
           ),
-        ));
+        );
+      }),
+    );
   }
 }

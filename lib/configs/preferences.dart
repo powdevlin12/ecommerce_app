@@ -12,6 +12,7 @@ class Preferences {
   static const String userModel = 'userModel';
   static const String userLogin = "userLogin";
   static const String securePasword = 'secretAppKey';
+  static const String domain = 'domain';
 
   static Future<void> setPreferences() async {
     instance = await SharedPreferences.getInstance();
@@ -49,6 +50,22 @@ class UserPreferences {
       return "";
     }
     return enPass;
+  }
+
+  static Future<bool> setDomain(String? domain) async {
+    // String enPass = encryptPassword(password);
+    return await UtilPreferences.setString(
+        Preferences.domain, domain ?? "localhost");
+  }
+
+  static Future<String> getDomain() async {
+    String? domain = UtilPreferences.getString(Preferences.domain);
+    // final preferences = await SharedPreferences.getInstance();
+    // String? domain = preferences.getString("domain");
+    if (domain == null || domain.isEmpty) {
+      return "localhost";
+    }
+    return domain;
   }
 
   static Future<bool> setToken(String token) {

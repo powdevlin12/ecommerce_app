@@ -1,10 +1,12 @@
 import 'package:ercomerce_app/api/http_manager.dart';
+import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 
 class Api {
   static final httpManager = HTTPManager();
   static const String https = "https://";
   static const String http = "http://";
+  static String domain = "localhost";
 
   static String getProtocol() {
     const bool useSsl = false;
@@ -14,11 +16,11 @@ class Api {
 
   static String localHost() {
     // return "restaurantbe-production.up.railway.app";
-    return "192.168.1.7:3012";
+    return domain;
   }
 
   static String branchGetter() {
-    String branch = getProtocol() + localHost();
+    String branch = "${getProtocol()}${domain ?? localHost()}:3012";
     return branch;
   }
 
@@ -46,6 +48,7 @@ class Api {
     String email = "",
     String name = "",
     String password = "",
+    String domain = "",
     String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
   }) async {
     var params = {
@@ -67,8 +70,9 @@ class Api {
     String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
   }) async {
     var params = {"email": email, "password": password, "refreshToken": ""};
+    String url = appendBranch(loginUrl);
     final result = await httpManager.post(
-      url: appendBranch(loginUrl),
+      url: url,
       data: params,
       cancelTag: tagRequest,
     );

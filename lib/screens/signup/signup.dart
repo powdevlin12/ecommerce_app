@@ -1,5 +1,6 @@
 import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
@@ -67,7 +68,7 @@ class _SignupState extends State<Signup> {
             onPressed: () {
               Navigator.pop(context);
             },
-            content: "Đăng ký thất bại !");
+            content: result.message);
       }
     }
   }
