@@ -1,12 +1,10 @@
 import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/configs/colors.dart';
-import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
-import 'package:ercomerce_app/utils/convert_color.dart';
 import 'package:ercomerce_app/widgets/back_button_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:ercomerce_app/widgets/screen_widget.dart';

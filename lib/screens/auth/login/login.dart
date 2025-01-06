@@ -97,78 +97,80 @@ class _LoginState extends State<Login> {
       child: BlocBuilder<DomainCubit, String>(builder: (context, domain) {
         return Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TextWidget(
-                content: 'Đăng nhập',
-                type: TextType.title,
-              ),
-              SizedBox(
-                height: spacing * 1.5,
-              ),
-              TextFieldWidget(
-                hintText: 'Nhập tên miền...',
-                controller: _domainController,
-              ),
-              SizedBox(
-                height: spacing,
-              ),
-              TextFieldWidget(
-                hintText: 'Email của bạn',
-                controller: _emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email không được bỏ trống';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: spacing,
-              ),
-              TextFieldWidget(
-                  hintText: 'Nhập mật khẩu',
-                  obscureText: true,
-                  controller: _passwordController,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextWidget(
+                  content: 'Đăng nhập',
+                  type: TextType.title,
+                ),
+                SizedBox(
+                  height: spacing * 1.5,
+                ),
+                TextFieldWidget(
+                  hintText: 'Nhập tên miền...',
+                  controller: _domainController,
+                ),
+                SizedBox(
+                  height: spacing,
+                ),
+                TextFieldWidget(
+                  hintText: 'Email của bạn',
+                  controller: _emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Mật khẩu không được bỏ trống';
+                      return 'Email không được bỏ trống';
                     }
                     return null;
-                  }),
-              SizedBox(
-                height: spacing,
-              ),
-              ButtonWidget(
-                text: 'Đăng nhập',
-                onPressed: () {
-                  _submitForm(domain);
-                },
-                isLoading: _loadingLogin == StatusState.loading,
-              ),
-              SizedBox(
-                height: spacing,
-              ),
-              GestureDetector(
-                onTap: _onGoToRegister,
-                child: Row(
-                  children: [
-                    const TextWidget(
-                      content: 'Bạn chưa có tài khoản?',
-                      size: 14.0,
-                      weight: FontWeight.w500,
-                    ),
-                    TextWidget(
-                      content: ' Đăng ký tại đây',
-                      size: 14.0,
-                      weight: FontWeight.w500,
-                      color: primaryColor,
-                    )
-                  ],
+                  },
                 ),
-              )
-            ],
+                SizedBox(
+                  height: spacing,
+                ),
+                TextFieldWidget(
+                    hintText: 'Nhập mật khẩu',
+                    obscureText: true,
+                    controller: _passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Mật khẩu không được bỏ trống';
+                      }
+                      return null;
+                    }),
+                SizedBox(
+                  height: spacing,
+                ),
+                ButtonWidget(
+                  text: 'Đăng nhập',
+                  onPressed: () {
+                    _submitForm(domain);
+                  },
+                  isLoading: _loadingLogin == StatusState.loading,
+                ),
+                SizedBox(
+                  height: spacing,
+                ),
+                GestureDetector(
+                  onTap: _onGoToRegister,
+                  child: Row(
+                    children: [
+                      const TextWidget(
+                        content: 'Bạn chưa có tài khoản?',
+                        size: 14.0,
+                        weight: FontWeight.w500,
+                      ),
+                      TextWidget(
+                        content: ' Đăng ký tại đây',
+                        size: 14.0,
+                        weight: FontWeight.w500,
+                        color: primaryColor,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         );
       }),
