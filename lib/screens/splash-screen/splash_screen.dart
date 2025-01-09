@@ -1,4 +1,7 @@
+import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/configs/preferences.dart';
+import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -33,12 +36,21 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
 
     // Navigate to Home after 3 seconds
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => const HomePage()),
-    //   );
-    // });
+    Future.delayed(const Duration(seconds: 3), () {
+      if (Api.accessToken == "") {
+        Navigator.pushNamedAndRemoveUntil(
+            // ignore: use_build_context_synchronously
+            context,
+            AppRoutes.login,
+            (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            // ignore: use_build_context_synchronously
+            context,
+            AppRoutes.home,
+            (route) => false);
+      }
+    });
   }
 
   @override

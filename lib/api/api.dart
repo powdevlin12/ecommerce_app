@@ -7,6 +7,7 @@ class Api {
   static const String https = "https://";
   static const String http = "http://";
   static String domain = "localhost";
+  static String accessToken = "";
 
   static String getProtocol() {
     const bool useSsl = false;

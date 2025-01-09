@@ -14,6 +14,7 @@ import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -69,6 +70,11 @@ class _LoginState extends State<Login> {
 
       if (result.isSuccess) {
         LoginSuccess data = LoginSuccess.fromJson(result.metadata);
+        await UserPreferences.setAccessToken(data.tokens.accessToken);
+        // SharedPreferences sharePreferences =
+        //     await SharedPreferences.getInstance();
+        // bool isSave = await sharePreferences.setString(
+        //     "accessToken", data.tokens.accessToken);
 
         _onGoToHome();
         setState(() {

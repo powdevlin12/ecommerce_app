@@ -13,6 +13,7 @@ class Preferences {
   static const String userLogin = "userLogin";
   static const String securePasword = 'secretAppKey';
   static const String domain = 'domain';
+  static const String accessToken = 'accessToken';
 
   static Future<void> setPreferences() async {
     instance = await SharedPreferences.getInstance();
@@ -66,6 +67,24 @@ class UserPreferences {
       return "localhost";
     }
     return domain;
+  }
+
+  static Future<bool> setAccessToken(String? accessToken) async {
+    return await UtilPreferences.setString(
+        Preferences.accessToken, accessToken ?? "");
+  }
+
+  static Future<String> getAccessToken() async {
+    String? accessToken = UtilPreferences.getString(Preferences.accessToken);
+    if (accessToken == null || accessToken.isEmpty) {
+      return "";
+    }
+    return accessToken;
+  }
+
+  static Future<bool> removeAccessToken() async {
+    bool result = await UtilPreferences.setString(Preferences.accessToken, "");
+    return result;
   }
 
   static Future<bool> setToken(String token) {

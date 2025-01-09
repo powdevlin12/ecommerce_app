@@ -27,13 +27,21 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _initPreferences();
-    _initDomain();
+    _initPreferences().then((value) {
+      _initDomain();
+    }).then((value) {
+      _initGetAccessToken();
+    });
   }
 
   Future<void> _initDomain() async {
     final domain = await UserPreferences.getDomain();
     Api.domain = domain;
+  }
+
+  Future<void> _initGetAccessToken() async {
+    final accessToken = await UserPreferences.getAccessToken();
+    Api.accessToken = accessToken;
   }
 
   Future<void> _initPreferences() async {
