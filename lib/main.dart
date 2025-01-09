@@ -31,6 +31,8 @@ class MyAppState extends State<MyApp> {
       _initDomain();
     }).then((value) {
       _initGetAccessToken();
+    }).then((value) {
+      _initGetShopId();
     });
   }
 
@@ -42,6 +44,11 @@ class MyAppState extends State<MyApp> {
   Future<void> _initGetAccessToken() async {
     final accessToken = await UserPreferences.getAccessToken();
     Api.accessToken = accessToken;
+  }
+
+  Future<void> _initGetShopId() async {
+    final shopId = await UserPreferences.getShopId();
+    Api.shopId = shopId;
   }
 
   Future<void> _initPreferences() async {

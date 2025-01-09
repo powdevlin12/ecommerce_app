@@ -1,4 +1,4 @@
-import 'package:ercomerce_app/models/client/shop_model.dart';
+import 'package:ercomerce_app/models/service/shop_model.dart';
 import 'package:ercomerce_app/models/client/token_model.dart';
 
 class LoginSuccess {

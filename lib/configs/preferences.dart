@@ -14,6 +14,7 @@ class Preferences {
   static const String securePasword = 'secretAppKey';
   static const String domain = 'domain';
   static const String accessToken = 'accessToken';
+  static const String shopId = 'shopId';
 
   static Future<void> setPreferences() async {
     instance = await SharedPreferences.getInstance();
@@ -80,6 +81,19 @@ class UserPreferences {
       return "";
     }
     return accessToken;
+  }
+
+  static Future<bool> setShopId(String? accessToken) async {
+    return await UtilPreferences.setString(
+        Preferences.shopId, accessToken ?? "");
+  }
+
+  static Future<String> getShopId() async {
+    String? shopId = UtilPreferences.getString(Preferences.shopId);
+    if (shopId == null || shopId.isEmpty) {
+      return "";
+    }
+    return shopId;
   }
 
   static Future<bool> removeAccessToken() async {

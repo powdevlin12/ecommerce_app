@@ -8,6 +8,13 @@ class ParseTypeData {
     return "${input ?? ""}";
   }
 
+  static List<String> ensureListString(dynamic input) {
+    if (input is List<String>) {
+      return input;
+    }
+    return [];
+  }
+
   static String ensureStringDef(dynamic input, String def) {
     if (input is String) {
       return input;

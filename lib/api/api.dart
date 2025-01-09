@@ -8,6 +8,7 @@ class Api {
   static const String http = "http://";
   static String domain = "localhost";
   static String accessToken = "";
+  static String shopId = "";
 
   static String getProtocol() {
     const bool useSsl = false;
@@ -44,6 +45,7 @@ class Api {
   static String versionApi = "/v1/api";
   static String loginUrl = "$versionApi/login";
   static String signUpUrl = "$versionApi/sign-up";
+  static String getMeUrl = "$versionApi/me";
 
   static Future<ResultModel> requestSignUp({
     String email = "",
@@ -75,6 +77,18 @@ class Api {
     final result = await httpManager.post(
       url: url,
       data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestGetMe({
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    String url = appendBranch(getMeUrl);
+
+    final result = await httpManager.get(
+      url: url,
       cancelTag: tagRequest,
     );
     return ResultModel.fromJson(result);

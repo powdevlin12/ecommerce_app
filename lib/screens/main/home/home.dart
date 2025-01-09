@@ -1,7 +1,9 @@
 import 'package:ercomerce_app/configs/preferences.dart';
+import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
+import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -44,7 +46,9 @@ class _HomeState extends State<Home> {
         ),
       ),
       const Center(child: Text('Search', style: TextStyle(fontSize: 24))),
-      const Center(child: Text('Profile', style: TextStyle(fontSize: 24))),
+      Center(
+          child: Text(ShopRepository.userModel!.getName ?? "",
+              style: const TextStyle(fontSize: 24))),
     ];
 
     return Scaffold(

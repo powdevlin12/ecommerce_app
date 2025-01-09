@@ -6,6 +6,7 @@ import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/models/client/login_succes_model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
@@ -14,7 +15,6 @@ import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -71,10 +71,10 @@ class _LoginState extends State<Login> {
       if (result.isSuccess) {
         LoginSuccess data = LoginSuccess.fromJson(result.metadata);
         await UserPreferences.setAccessToken(data.tokens.accessToken);
-        // SharedPreferences sharePreferences =
-        //     await SharedPreferences.getInstance();
-        // bool isSave = await sharePreferences.setString(
-        //     "accessToken", data.tokens.accessToken);
+        await UserPreferences.setShopId(data.shop.shopId);
+
+        Api.shopId = data.shop.shopId;
+        ShopRepository.setUserModel(data.shop.toJson());
 
         _onGoToHome();
         setState(() {
