@@ -72,6 +72,7 @@ class _LoginState extends State<Login> {
         LoginSuccess data = LoginSuccess.fromJson(result.metadata);
         await UserPreferences.setAccessToken(data.tokens.accessToken);
         await UserPreferences.setShopId(data.shop.shopId);
+        await UserPreferences.setShop(data.shop);
 
         Api.shopId = data.shop.shopId;
         ShopRepository.setUserModel(data.shop.toJson());

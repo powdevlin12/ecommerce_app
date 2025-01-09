@@ -2,6 +2,8 @@ import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/preferences.dart';
+import 'package:ercomerce_app/models/service/shop_model.dart';
+import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ class MyAppState extends State<MyApp> {
     }).then((value) {
       _initGetAccessToken();
     }).then((value) {
-      _initGetShopId();
+      _initGetShop();
     });
   }
 
@@ -49,6 +51,12 @@ class MyAppState extends State<MyApp> {
   Future<void> _initGetShopId() async {
     final shopId = await UserPreferences.getShopId();
     Api.shopId = shopId;
+  }
+
+  Future<ShopModel> _initGetShop() async {
+    final shop = await UserPreferences.getShop();
+    ShopRepository.setUserModel(shop.toJson());
+    return shop;
   }
 
   Future<void> _initPreferences() async {

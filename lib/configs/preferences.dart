@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ercomerce_app/models/service/shop_model.dart';
 import 'package:ercomerce_app/utils/preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto/crypto.dart';
@@ -15,6 +16,7 @@ class Preferences {
   static const String domain = 'domain';
   static const String accessToken = 'accessToken';
   static const String shopId = 'shopId';
+  static const String shop = 'shop';
 
   static Future<void> setPreferences() async {
     instance = await SharedPreferences.getInstance();
@@ -94,6 +96,19 @@ class UserPreferences {
       return "";
     }
     return shopId;
+  }
+
+  static Future<bool> setShop(ShopModel? shop) async {
+    return await UtilPreferences.setString(
+        Preferences.shop, jsonEncode(shop!.toJson()).toString());
+  }
+
+  static Future<ShopModel> getShop() async {
+    String? shop = UtilPreferences.getString(Preferences.shop);
+    if (shop == null || shop.isEmpty) {
+      return ShopModel.empty();
+    }
+    return ShopModel.fromJson(jsonDecode(shop));
   }
 
   static Future<bool> removeAccessToken() async {
