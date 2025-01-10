@@ -1,5 +1,4 @@
 import 'package:ercomerce_app/api/http_manager.dart';
-import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 
 class Api {
@@ -46,6 +45,7 @@ class Api {
   static String loginUrl = "$versionApi/login";
   static String signUpUrl = "$versionApi/sign-up";
   static String getMeUrl = "$versionApi/me";
+  static String getPublishProduct = "$versionApi/products/publish/all";
 
   static Future<ResultModel> requestSignUp({
     String email = "",
@@ -86,6 +86,19 @@ class Api {
     String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
   }) async {
     String url = appendBranch(getMeUrl);
+
+    final result = await httpManager.get(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  // ** Product
+  static Future<ResultModel> requestGetPublishProduct({
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    String url = appendBranch(getPublishProduct);
 
     final result = await httpManager.get(
       url: url,

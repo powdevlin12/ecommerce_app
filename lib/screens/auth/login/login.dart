@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
   void _onGoToHome() {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      AppRoutes.home,
+      AppRoutes.main,
       (route) => false,
     );
   }
@@ -71,10 +71,8 @@ class _LoginState extends State<Login> {
       if (result.isSuccess) {
         LoginSuccess data = LoginSuccess.fromJson(result.metadata);
         await UserPreferences.setAccessToken(data.tokens.accessToken);
-        await UserPreferences.setShopId(data.shop.shopId);
         await UserPreferences.setShop(data.shop);
 
-        Api.shopId = data.shop.shopId;
         ShopRepository.setUserModel(data.shop.toJson());
 
         _onGoToHome();

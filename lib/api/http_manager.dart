@@ -54,11 +54,11 @@ class HTTPManager {
     return options;
   }
 
-  BaseOptions _optionsCookie() {
-    final token = UserPreferences.getToken();
-    if (token != null) {
-      options.headers['access_token'] = token;
-    }
+  Future<BaseOptions> _optionsCookie() async {
+    final token = await UserPreferences.getAccessToken();
+    final client = await UserPreferences.getShop();
+    options.headers['authorization'] = token;
+    options.headers['x-client-id'] = client.shopId;
 
     return options;
   }
@@ -96,7 +96,7 @@ class HTTPManager {
       request = dioExternal;
     }
 
-    request.options = _optionsCookie();
+    request.options = await _optionsCookie();
     dioInternal.options.method = 'POST';
     dioInternal.options.headers['Content-Type'] =
         "application/json; charset=UTF-8";
@@ -164,7 +164,7 @@ class HTTPManager {
       request = dioExternal;
     }
 
-    request.options = _optionsCookie();
+    request.options = await _optionsCookie();
     dioInternal.options.method = 'PUT';
     dioInternal.options.headers['Content-Type'] =
         "application/json; charset=UTF-8";
@@ -247,7 +247,7 @@ class HTTPManager {
       request = dioExternal;
     }
 
-    request.options = _optionsCookie();
+    request.options = await _optionsCookie();
     dioInternal.options.method = 'PATCH';
     dioInternal.options.headers['Content-Type'] =
         "application/json; charset=UTF-8";
@@ -327,7 +327,7 @@ class HTTPManager {
       request = dioExternal;
     }
 
-    request.options = _optionsCookie();
+    request.options = await _optionsCookie();
     dioInternal.options.method = 'GET';
     final requestUrl = url;
     try {
@@ -373,7 +373,7 @@ class HTTPManager {
       request = dioExternal;
     }
 
-    request.options = _optionsCookie();
+    request.options = await _optionsCookie();
     dioInternal.options.method = 'GET';
     final requestUrl = url;
     try {

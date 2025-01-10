@@ -37,7 +37,7 @@ class ShopModel {
 
   factory ShopModel.fromJson(Map<String, dynamic> json) {
     return ShopModel(
-      shopId: ParseTypeData.ensureString(json['_id']),
+      shopId: ParseTypeData.ensureString(json['shopId']),
       name: ParseTypeData.ensureString(json['name']),
       email: ParseTypeData.ensureString(json['email']),
       password: ParseTypeData.ensureString(json['password']),

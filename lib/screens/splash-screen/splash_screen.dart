@@ -1,9 +1,7 @@
 import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/configs/colors.dart';
-import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -47,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
         Navigator.pushNamedAndRemoveUntil(
             // ignore: use_build_context_synchronously
             context,
-            AppRoutes.home,
+            AppRoutes.main,
             (route) => false);
       }
     });
@@ -63,45 +61,47 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      body: Stack(
-        children: [
-          Center(
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // App logo or icon
-                  Icon(
-                    Icons.flash_on,
-                    size: 100,
-                    color: Colors.white,
-                  ),
-                  SizedBox(height: 16),
-                  // App name or title
-                  Text(
-                    'TD Ecommerce',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Center(
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // App logo or icon
+                    Icon(
+                      Icons.flash_on,
+                      size: 100,
                       color: Colors.white,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 16),
+                    // App name or title
+                    Text(
+                      'TD Ecommerce',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          const Positioned(
-            bottom: 16,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
+            const Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
