@@ -48,6 +48,13 @@ class _LoginState extends State<Login> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _emailController.text = 'trandat1@gmail.com';
+    _passwordController.text = 'Sgod123@';
+  }
+
   Future<void> _submitForm(String domain) async {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;

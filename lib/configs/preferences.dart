@@ -108,7 +108,8 @@ class UserPreferences {
     if (shop == null || shop.isEmpty) {
       return ShopModel.empty();
     }
-    return ShopModel.fromJson(jsonDecode(shop));
+    Map<String, dynamic> shopDecode = jsonDecode(shop);
+    return ShopModel.fromJson(shopDecode);
   }
 
   static Future<bool> removeAccessToken() async {
