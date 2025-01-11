@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:ercomerce_app/models/product/product_attributes.model.dart';
 import 'package:ercomerce_app/models/product/product_shop.model.dart';
 import 'package:ercomerce_app/models/product/product_variations.model.dart';
@@ -58,8 +60,7 @@ class ProductModel {
         product_shop: ProductShopModel.fromJson(json['product_shop']),
         product_thumb: ParseTypeData.ensureString(json['product_thumb']),
         product_type: ParseTypeData.ensureString(json['product_type']),
-        product_variations:
-            ProductVariationsModel.fromJson(json['product_variations']),
+        product_variations: ProductVariationsModel.empty(),
         updatedAt: ParseTypeData.ensureString(json['updatedAt']));
   }
 }

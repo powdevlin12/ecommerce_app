@@ -11,7 +11,7 @@ class ProductAttributesModel {
     required this.violet,
   });
 
-  factory ProductAttributesModel.fromJson(Map<String, String> json) {
+  factory ProductAttributesModel.fromJson(Map<String, dynamic> json) {
     return ProductAttributesModel(
       manuifacturer: ParseTypeData.ensureString(json['manuifacturer']),
       model_type: ParseTypeData.ensureString(json['name']),
@@ -19,7 +19,7 @@ class ProductAttributesModel {
     );
   }
 
-  factory ProductAttributesModel.empty(Map<String, String> json) {
+  factory ProductAttributesModel.empty(Map<String, dynamic> json) {
     return const ProductAttributesModel(
         manuifacturer: "", model_type: "", violet: "");
   }

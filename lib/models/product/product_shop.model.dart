@@ -9,13 +9,13 @@ class ProductShopModel {
     required this.name,
   });
 
-  factory ProductShopModel.fromJson(Map<String, String> json) {
+  factory ProductShopModel.fromJson(Map<String, dynamic> json) {
     return ProductShopModel(
         email: ParseTypeData.ensureString(json['email']),
         name: ParseTypeData.ensureString(json['name']));
   }
 
-  factory ProductShopModel.empty(Map<String, String> json) {
+  factory ProductShopModel.empty(Map<String, dynamic> json) {
     return const ProductShopModel(
       email: "",
       name: "",

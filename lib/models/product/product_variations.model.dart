@@ -11,7 +11,7 @@ class ProductVariationsModel {
     );
   }
 
-  factory ProductVariationsModel.empty(Map<String, String> json) {
+  factory ProductVariationsModel.empty() {
     return const ProductVariationsModel(variations: []);
   }
 
