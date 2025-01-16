@@ -19,7 +19,7 @@ class ProductAttributesModel {
     );
   }
 
-  factory ProductAttributesModel.empty(Map<String, dynamic> json) {
+  factory ProductAttributesModel.empty() {
     return const ProductAttributesModel(
         manuifacturer: "", model_type: "", violet: "");
   }

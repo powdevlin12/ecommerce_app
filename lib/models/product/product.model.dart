@@ -48,8 +48,9 @@ class ProductModel {
         createdAt: ParseTypeData.ensureString(json["createdAt"]),
         is_draft: ParseTypeData.ensureBool(json["is_draft"]),
         is_public: ParseTypeData.ensureBool(json["is_public"]),
-        product_attributes:
-            ProductAttributesModel.fromJson(json['product_attributes']),
+        // product_attributes:
+        // ProductAttributesModel.fromJson(json['product_attributes']),
+        product_attributes: ProductAttributesModel.empty(),
         product_description:
             ParseTypeData.ensureString(json['product_description']),
         product_name: ParseTypeData.ensureString(json['product_name']),
@@ -57,7 +58,7 @@ class ProductModel {
         product_quantity: ParseTypeData.ensureInt(json['product_quantity']),
         product_rating_avg:
             ParseTypeData.ensureDouble(json['product_rating_avg']),
-        product_shop: ProductShopModel.fromJson(json['product_shop']),
+        product_shop: ProductShopModel.empty(),
         product_thumb: ParseTypeData.ensureString(json['product_thumb']),
         product_type: ParseTypeData.ensureString(json['product_type']),
         product_variations: ProductVariationsModel.empty(),

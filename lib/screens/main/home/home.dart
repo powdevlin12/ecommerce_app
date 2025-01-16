@@ -1,10 +1,9 @@
 import 'package:ercomerce_app/api/api.dart';
-import 'package:ercomerce_app/configs/preferences.dart';
+import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
-import 'package:ercomerce_app/routes/app_routes.dart';
+import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
-import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,27 +14,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  void _handleLogOut() {
-    UserPreferences.removeAccessToken().then((value) {
-      if (value == true) {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          AppRoutes.login,
-          (route) => false,
-        );
-      } else {
-        showMyDialog(
-          context: context,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          content: "Đăng xuất thất bại!",
-        );
-      }
-    });
-  }
+  List<ProductModel> listProduct = [];
+  bool loading = false;
 
   Future<ResultModel> _handleGetPublishProduct() async {
+    setState(() {
+      loading = true;
+    });
     String tagRequestGetPublishProduct =
         Api.buildIncreaseTagRequestWithID("product");
 
@@ -43,13 +28,21 @@ class _HomeState extends State<Home> {
         tagRequest: tagRequestGetPublishProduct);
 
     if (result.isSuccess) {
-      // ignore: unused_local_variable
-      List<ProductModel> listProduct = result.metadata
-          .map((item) {
-            return ProductModel.fromJson(item as Map<String, dynamic>);
-          })
-          .toList()
-          .cash<ProductModel>();
+      try {
+        List<ProductModel> listProductResult =
+            (result.metadata as List).map((item) {
+          return ProductModel.fromJson(item as Map<String, dynamic>);
+        }).toList();
+        setState(() {
+          listProduct = listProductResult;
+          loading = false;
+        });
+      } catch (e) {
+        setState(() {
+          loading = false;
+        });
+        debugPrint('Lỗi khi ánh xạ dữ liệu: $e');
+      }
     } else {
       showMyDialog(
           context: context,
@@ -68,14 +61,33 @@ class _HomeState extends State<Home> {
     _handleGetPublishProduct();
   }
 
+  Widget handleBuidList() {
+    if (loading) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(child: CircularProgressIndicator(color: primaryColor)),
+      );
+    }
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Số cột
+        crossAxisSpacing: 10.0, // Khoảng cách giữa các cột
+        mainAxisSpacing: 10.0, // Khoảng cách giữa các hàng
+        childAspectRatio: 0.7, // Tỉ lệ chiều rộng / chiều cao của ô
+      ),
+      itemCount: listProduct.length,
+      itemBuilder: (context, index) {
+        return ProductItem(product: listProduct[index]);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ButtonWidget(
-          text: "Logout",
-          onPressed: () => _handleLogOut(),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: handleBuidList(),
       ),
     );
   }

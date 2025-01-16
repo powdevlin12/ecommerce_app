@@ -15,7 +15,7 @@ class ProductShopModel {
         name: ParseTypeData.ensureString(json['name']));
   }
 
-  factory ProductShopModel.empty(Map<String, dynamic> json) {
+  factory ProductShopModel.empty() {
     return const ProductShopModel(
       email: "",
       name: "",

@@ -15,5 +15,5 @@ const Color subBlueColor = Color(0XFF2ED0F6);
 
 const Color greenColor = Color(0XFF00C851);
 
-const String dangerColorToast = "#FF4444";
+Color dangerColorToast = hexToColor("#FF4444");
 const String successColorToast = "#00C851";
