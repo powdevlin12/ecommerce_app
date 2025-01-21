@@ -1,3 +1,4 @@
+import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:ercomerce_app/screens/main/home/home.dart';
 import 'package:ercomerce_app/screens/main/profile/profile.dart';
@@ -25,11 +26,13 @@ class _MainState extends State<Main> {
       body: pages[_currentIndex], // Display the selected page
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        backgroundColor: subBgColor,
         onTap: (index) {
           setState(() {
             _currentIndex = index; // Update the current tab index
           });
         },
+        selectedItemColor: primaryColor,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

@@ -49,7 +49,7 @@ class ButtonWidget extends StatelessWidget {
                     ),
               )
             : CircularProgressIndicator(
-                color: hexToColor(subBgColor),
+                color: subBgColor,
               ),
       ),
     );

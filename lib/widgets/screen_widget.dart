@@ -1,6 +1,5 @@
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
-import 'package:ercomerce_app/utils/convert_color.dart';
 import 'package:flutter/material.dart';
 
 class ScreenWidget extends StatelessWidget {
@@ -11,7 +10,7 @@ class ScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: hexToColor(backgroundColor),
+        backgroundColor: backgroundColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(

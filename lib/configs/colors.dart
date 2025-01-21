@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 Color primaryColor = hexToColor("#8E6CEF");
 
 const Color subColor = Color(0XFFFFC30E);
-const String backgroundColor = "#FFFFFF";
-const String subBgColor = "#F4F4F4";
+Color backgroundColor = hexToColor("#FFFFFF");
+Color subBgColor = hexToColor("#F4F4F4");
 const String inputBackgroundColor = "#F4F4F4";
 Color textColor = hexToColor("#272727");
 const Color subTextColor = Color(0xFF9C9C9C);
