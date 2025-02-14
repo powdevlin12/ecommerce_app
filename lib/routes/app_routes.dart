@@ -7,4 +7,7 @@ class AppRoutes {
   // main
   static const String main = 'main';
   static const String home = 'home';
+
+  // learn
+  static const String stream = 'stream';
 }

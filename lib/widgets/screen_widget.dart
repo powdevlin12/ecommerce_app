@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 class ScreenWidget extends StatelessWidget {
   final Widget child;
   final double? paddingTop;
-  const ScreenWidget({super.key, required this.child, this.paddingTop});
+  final AppBar? appBar;
+
+  const ScreenWidget(
+      {super.key, required this.child, this.paddingTop, this.appBar});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backgroundColor,
+        appBar: appBar,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(

@@ -48,6 +48,13 @@ class _LoginState extends State<Login> {
     );
   }
 
+  void _onGoToLearn() {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.stream,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -174,6 +181,27 @@ class _LoginState extends State<Login> {
                       ),
                       TextWidget(
                         content: ' Đăng ký tại đây',
+                        size: 14.0,
+                        weight: FontWeight.w500,
+                        color: primaryColor,
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: spacing,
+                ),
+                GestureDetector(
+                  onTap: _onGoToLearn,
+                  child: Row(
+                    children: [
+                      const TextWidget(
+                        content: 'Học Flutter nè!',
+                        size: 14.0,
+                        weight: FontWeight.w500,
+                      ),
+                      TextWidget(
+                        content: ' Tại đây',
                         size: 14.0,
                         weight: FontWeight.w500,
                         color: primaryColor,
