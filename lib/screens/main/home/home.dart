@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/screens/main/home/widgets/app_bar_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:flutter/material.dart';
@@ -96,16 +97,30 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: BlocConsumer<ProductBloc, ProductState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          debugPrint('state ${state.productState}');
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: handleBuidList(
-                status: state.productState, listProduct: state.listProduct),
-          );
-        },
+      body: SafeArea(
+        child: Column(
+          children: [
+            const AppBarHome(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: BlocConsumer<ProductBloc, ProductState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  debugPrint('state ${state.productState}');
+                  return RefreshIndicator(
+                    onRefresh: _handleGetPublishProduct,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: handleBuidList(
+                          status: state.productState,
+                          listProduct: state.listProduct),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
