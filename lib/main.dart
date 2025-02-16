@@ -1,5 +1,6 @@
 import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
+import 'package:ercomerce_app/blocs/product/product_bloc.dart';
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/models/service/shop_model.dart';
@@ -11,8 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(
-    BlocProvider(
-      create: (context) => DomainCubit(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ProductBloc()),
+        BlocProvider(create: (context) => DomainCubit()),
+      ],
       child: const MyApp(),
     ),
   );
