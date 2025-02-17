@@ -1,14 +1,17 @@
 import 'package:ercomerce_app/api/api.dart';
 import 'package:ercomerce_app/blocs/product/product_bloc.dart';
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/app_bar_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
+import 'package:ercomerce_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -98,9 +101,18 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
+        top: true,
         child: Column(
           children: [
+            SizedBox(
+              height: Platform.isAndroid ? 32 : 8,
+            ),
             const AppBarHome(),
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
+              child: SearchWidget(),
+            ),
             const SizedBox(height: 16),
             Expanded(
               child: BlocConsumer<ProductBloc, ProductState>(
