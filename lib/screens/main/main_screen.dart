@@ -1,5 +1,4 @@
 import 'package:ercomerce_app/configs/colors.dart';
-import 'package:ercomerce_app/repository/shop_repository.dart';
 import 'package:ercomerce_app/screens/main/home/home.dart';
 import 'package:ercomerce_app/screens/main/profile/profile.dart';
 import 'package:flutter/material.dart';

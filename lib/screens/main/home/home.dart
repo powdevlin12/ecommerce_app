@@ -1,17 +1,21 @@
+import 'dart:io';
+
 import 'package:ercomerce_app/api/api.dart';
+import 'package:ercomerce_app/blocs/category/category_bloc.dart';
 import 'package:ercomerce_app/blocs/product/product_bloc.dart';
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
+import 'package:ercomerce_app/models/product/category.model.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/app_bar_home.dart';
-import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';
+import 'package:ercomerce_app/screens/main/home/widgets/category_home.dart';
+import 'package:ercomerce_app/screens/main/home/widgets/product_list.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,13 +27,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late ProductBloc productBloc;
+  late CategoryBloc categoryBloc;
   @override
   void initState() {
     super.initState();
     productBloc = BlocProvider.of<ProductBloc>(context, listen: false);
+    categoryBloc = BlocProvider.of<CategoryBloc>(context, listen: false);
 
     if (productBloc.state.productState != StatusState.loadCompleted) {
       _handleGetPublishProduct();
+    }
+
+    if (categoryBloc.state.categoryState != StatusState.loadCompleted) {
+      _handleGetCategories();
     }
   }
 
@@ -74,26 +84,46 @@ class _HomeState extends State<Home> {
     return result;
   }
 
-  Widget handleBuidList(
-      {required List<ProductModel> listProduct, required StatusState status}) {
-    if (status != StatusState.loadCompleted) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(child: CircularProgressIndicator(color: primaryColor)),
-      );
+  Future<ResultModel> _handleGetCategories() async {
+    categoryBloc.add(const OnUpdateStatusCategory(
+        params: {"categoryState": StatusState.loading}));
+
+    String tagRequestGetCattegories =
+        Api.buildIncreaseTagRequestWithID("category");
+
+    ResultModel result =
+        await Api.requestGetCategories(tagRequest: tagRequestGetCattegories);
+
+    if (result.isSuccess) {
+      try {
+        List<CategoryModel> listCategoryResult =
+            (result.metadata as List).map((item) {
+          return CategoryModel.fromJson(item as Map<String, dynamic>);
+        }).toList();
+
+        categoryBloc.add(OnUpdateListCategory(
+            params: {"listCategoryArg": listCategoryResult}));
+
+        categoryBloc.add(const OnUpdateStatusCategory(
+            params: {"categoryState": StatusState.loadCompleted}));
+      } catch (e) {
+        categoryBloc.add(const OnUpdateStatusCategory(
+            params: {"categoryState": StatusState.loadFailed}));
+        debugPrint('Lỗi khi ánh xạ dữ liệu: $e');
+      }
+    } else {
+      if (mounted && context.mounted) {
+        showMyDialog(
+            context: context,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            title: "Thông báo",
+            content: "Lấy thông tin danh mục thất bại");
+      }
     }
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Số cột
-        crossAxisSpacing: 10.0, // Khoảng cách giữa các cột
-        mainAxisSpacing: 10.0, // Khoảng cách giữa các hàng
-        childAspectRatio: 0.7, // Tỉ lệ chiều rộng / chiều cao của ô
-      ),
-      itemCount: listProduct.length,
-      itemBuilder: (context, index) {
-        return ProductItem(product: listProduct[index]);
-      },
-    );
+
+    return result;
   }
 
   @override
@@ -102,36 +132,43 @@ class _HomeState extends State<Home> {
       backgroundColor: backgroundColor,
       body: SafeArea(
         top: true,
-        child: Column(
-          children: [
-            SizedBox(
-              height: Platform.isAndroid ? 32 : 8,
-            ),
-            const AppBarHome(),
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
-              child: SearchWidget(),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: BlocConsumer<ProductBloc, ProductState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  debugPrint('state ${state.productState}');
-                  return RefreshIndicator(
-                    onRefresh: _handleGetPublishProduct,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: handleBuidList(
-                          status: state.productState,
-                          listProduct: state.listProduct),
-                    ),
-                  );
-                },
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Platform.isAndroid ? 32 : 8,
+                  ),
+                  const AppBarHome(),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
+                    child: SearchWidget(),
+                  ),
+                  const SizedBox(height: 8),
+                  const CategoryHome(),
+                  const SizedBox(height: 8),
+                ],
               ),
-            )
+            ),
           ],
+          body: BlocConsumer<ProductBloc, ProductState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              debugPrint('state ${state.productState}');
+              return RefreshIndicator(
+                onRefresh: _handleGetPublishProduct,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ProductList(
+                      listProduct: state.listProduct,
+                      status: state.productState),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

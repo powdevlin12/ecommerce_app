@@ -46,6 +46,7 @@ class Api {
   static String signUpUrl = "$versionApi/sign-up";
   static String getMeUrl = "$versionApi/me";
   static String getPublishProduct = "$versionApi/products/publish/all";
+  static String getListCategoryUrl = "$versionApi/category";
 
   static Future<ResultModel> requestSignUp({
     String email = "",
@@ -99,6 +100,19 @@ class Api {
     String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
   }) async {
     String url = appendBranch(getPublishProduct);
+
+    final result = await httpManager.get(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+// ** Categories
+  static Future<ResultModel> requestGetCategories({
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    String url = appendBranch(getListCategoryUrl);
 
     final result = await httpManager.get(
       url: url,

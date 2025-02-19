@@ -1,4 +1,5 @@
 import 'package:ercomerce_app/api/api.dart';
+import 'package:ercomerce_app/blocs/category/category_bloc.dart';
 import 'package:ercomerce_app/blocs/domain/domain_cubit.dart';
 import 'package:ercomerce_app/blocs/product/product_bloc.dart';
 import 'package:ercomerce_app/configs/colors.dart';
@@ -15,6 +16,7 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ProductBloc()),
+        BlocProvider(create: (context) => CategoryBloc()),
         BlocProvider(create: (context) => DomainCubit()),
       ],
       child: const MyApp(),
