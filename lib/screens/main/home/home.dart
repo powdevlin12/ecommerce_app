@@ -148,7 +148,14 @@ class _HomeState extends State<Home> {
                     child: SearchWidget(),
                   ),
                   const SizedBox(height: 8),
-                  const CategoryHome(),
+                  BlocConsumer<CategoryBloc, CategoryState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return CategoryHome(
+                          listCategory: state.listCategory,
+                          status: state.categoryState,
+                        );
+                      }),
                   const SizedBox(height: 8),
                 ],
               ),
