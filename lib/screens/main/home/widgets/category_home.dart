@@ -3,6 +3,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/category.model.dart';
+import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,17 +22,22 @@ class CategoryHome extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextWidget(
+              const TextWidget(
                 content: "Categories",
                 weight: FontWeight.bold,
               ),
-              TextWidget(
-                content: "SeeAll",
-                size: 14,
-                weight: FontWeight.w500,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.category);
+                },
+                child: const TextWidget(
+                  content: "SeeAll",
+                  size: 14,
+                  weight: FontWeight.w500,
+                ),
               )
             ],
           ),
