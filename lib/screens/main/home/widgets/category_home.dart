@@ -70,9 +70,11 @@ class CategoryHome extends StatelessWidget {
                           ),
                         ),
                       ),
-                      TextWidget(
-                        content: category.name,
-                        size: 12,
+                      Center(
+                        child: TextWidget(
+                          content: category.name,
+                          size: 12,
+                        ),
                       )
                     ],
                   ),

@@ -48,22 +48,22 @@ class ProductList extends StatelessWidget {
                   child: Center(
                       child: CircularProgressIndicator(color: primaryColor)),
                 )
-              : Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Số cột
-                      crossAxisSpacing: 10.0, // Khoảng cách giữa các cột
-                      mainAxisSpacing: 10.0, // Khoảng cách giữa các hàng
-                      childAspectRatio:
-                          0.7, // Tỉ lệ chiều rộng / chiều cao của ô
-                    ),
+              : SizedBox(
+                  height: 300,
+                  width: double
+                      .infinity, // Đảm bảo ListView có chiều rộng full màn hình
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 16),
+                    scrollDirection: Axis.horizontal,
+                    physics:
+                        const BouncingScrollPhysics(), // Hiệu ứng cuộn mượt
                     itemCount: listProduct.length,
                     itemBuilder: (context, index) {
                       return ProductItem(product: listProduct[index]);
                     },
                   ),
-                )
+                ),
         ],
       ),
     );

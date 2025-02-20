@@ -13,7 +13,7 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int _currentIndex = 0; // To track the current tab
-  static const double sizeIcon = 48.0;
+  static const double sizeIcon = 36.0;
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
@@ -30,7 +30,7 @@ class _MainState extends State<Main> {
         selectedFontSize: 0,
         unselectedFontSize: 0,
         currentIndex: _currentIndex,
-        backgroundColor: subBgColor,
+        backgroundColor: backgroundColor,
         onTap: (index) {
           setState(() {
             _currentIndex = index; // Update the current tab index
