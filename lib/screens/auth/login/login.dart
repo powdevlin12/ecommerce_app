@@ -131,6 +131,7 @@ class _LoginState extends State<Login> {
                 TextFieldWidget(
                   hintText: 'Nhập tên miền...',
                   controller: _domainController,
+                  height: 56,
                 ),
                 SizedBox(
                   height: spacing,
@@ -144,11 +145,13 @@ class _LoginState extends State<Login> {
                     }
                     return null;
                   },
+                  height: 56,
                 ),
                 SizedBox(
                   height: spacing,
                 ),
                 TextFieldWidget(
+                    height: 56,
                     hintText: 'Nhập mật khẩu',
                     obscureText: true,
                     controller: _passwordController,

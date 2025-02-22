@@ -60,7 +60,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   const Gap(16.0),
                   ProfileOption(
-                    title: 'Wishlist',
+                    title: 'My Discount',
                     onPress: () {},
                   ),
                   const Gap(16.0),

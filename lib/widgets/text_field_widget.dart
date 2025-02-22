@@ -15,6 +15,7 @@ class TextFieldWidget extends StatelessWidget {
   final IconData? suffixIcon;
   final ValueChanged<String>? onChanged;
   final TextInputAction? textInputAction;
+  final double? height;
 
   const TextFieldWidget(
       {super.key,
@@ -27,12 +28,13 @@ class TextFieldWidget extends StatelessWidget {
       this.suffixIcon,
       this.onChanged,
       this.textInputAction,
-      this.radius});
+      this.radius,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 46,
+      height: height ?? 48,
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,

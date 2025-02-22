@@ -95,7 +95,7 @@ class _DiscountScreenState extends State<DiscountScreen> {
                   ? DiscountEmpty(
                       content: _isLoading == StatusState.loadCompleted
                           ? "Discount not found!!!"
-                          : "",
+                          : "Please type discount to search product apply!",
                     )
                   : ProductList(
                       listProduct: _listProduct,

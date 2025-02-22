@@ -18,7 +18,7 @@ class ProfileOption extends StatelessWidget {
           color: subBgColor),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: kPaddingHorizontal, vertical: kPaddingHorizontal),
+            horizontal: kPaddingHorizontal, vertical: kPaddingHorizontal * 1.2),
         child: InkWell(
           onTap: onPress,
           child: Row(
