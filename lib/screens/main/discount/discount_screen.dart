@@ -8,7 +8,10 @@ import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/screens/main/discount/widgets/discount_empty.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_list.dart';
+import 'package:ercomerce_app/widgets/app_bar_widget.dart';
+import 'package:ercomerce_app/widgets/back_button_widget.dart';
 import 'package:ercomerce_app/widgets/search_widget.dart';
+import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -76,6 +79,10 @@ class _DiscountScreenState extends State<DiscountScreen> {
     // Gọi API tìm kiếm (dưới đây là giả lập)
   }
 
+  void _onBack() {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,17 +92,22 @@ class _DiscountScreenState extends State<DiscountScreen> {
           padding: const EdgeInsets.only(
               left: kPaddingHorizontal, right: kPaddingHorizontal, top: 24.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              AppBarWidget(title: "Discount", onPressBack: _onBack),
+              const Gap(16.0),
               SearchWidget(
                 controller: searchController,
                 onChanged: _onSearchChanged,
               ),
               const Gap(16),
               _listProduct.isEmpty
-                  ? DiscountEmpty(
-                      content: _isLoading == StatusState.loadCompleted
-                          ? "Discount not found!!!"
-                          : "Please type discount to search product apply!",
+                  ? Center(
+                      child: DiscountEmpty(
+                        content: _isLoading == StatusState.loadCompleted
+                            ? "Discount not found!!!"
+                            : "Please type discount to search product apply!",
+                      ),
                     )
                   : ProductList(
                       listProduct: _listProduct,

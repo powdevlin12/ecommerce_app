@@ -1,9 +1,11 @@
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/preferences.dart';
 import 'package:ercomerce_app/configs/size.dart';
+import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/profile/widgets/profile_option.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
+import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -44,11 +46,17 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Flex(direction: Axis.vertical, children: [
-          Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Gap(16),
+            const TextWidget(
+              content: "Profiles",
+              type: TextType.title,
+            ),
+            const Gap(16),
+            Expanded(
               child: ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -81,8 +89,8 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
