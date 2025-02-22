@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.20.1
   flutter_svg: ^2.0.17
   gap: ^3.0.1
+  rename_app: ^1.6.2
 
 dev_dependencies:
   flutter_test:
