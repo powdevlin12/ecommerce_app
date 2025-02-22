@@ -171,8 +171,13 @@ class _HomeState extends State<Home> {
               debugPrint('state ${state.productState}');
               return RefreshIndicator(
                 onRefresh: _handleGetPublishProduct,
-                child: ProductList(
-                    listProduct: state.listProduct, status: state.productState),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: kPaddingHorizontal),
+                  child: ProductList(
+                      listProduct: state.listProduct,
+                      status: state.productState),
+                ),
               );
             },
           ),
