@@ -8,6 +8,7 @@ class AppRoutes {
   static const String main = 'main';
   static const String home = 'home';
   static const String category = 'category';
+  static const String discount = 'discount';
 
   // learn
   static const String stream = 'stream';

@@ -54,12 +54,12 @@ class _MainState extends State<Main> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/notification.svg",
+              "assets/save.svg",
               width: sizeIcon,
               height: sizeIcon,
             ),
             activeIcon: SvgPicture.asset(
-              "assets/notification.svg",
+              "assets/save.svg",
               width: sizeIcon,
               height: sizeIcon,
               color: primaryColor,
@@ -68,12 +68,12 @@ class _MainState extends State<Main> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/save.svg",
+              "assets/notification.svg",
               width: sizeIcon,
               height: sizeIcon,
             ),
             activeIcon: SvgPicture.asset(
-              "assets/save.svg",
+              "assets/notification.svg",
               width: sizeIcon,
               height: sizeIcon,
               color: primaryColor,

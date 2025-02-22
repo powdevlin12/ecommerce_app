@@ -1,34 +1,20 @@
-import 'package:ercomerce_app/configs/colors.dart';
-import 'package:ercomerce_app/configs/size.dart';
-import 'package:ercomerce_app/widgets/text_widget.dart';
+import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({super.key});
+  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
+
+  const SearchWidget({super.key, required this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: inputBg,
-          borderRadius: const BorderRadius.all(Radius.circular(kCornerMedium))),
-      height: 48,
-      padding: const EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            "assets/search.svg",
-            width: 30.0,
-            height: 30.0,
-            fit: BoxFit.scaleDown,
-          ),
-          const SizedBox(
-            width: kPaddingHorizontal / 2,
-          ),
-          const TextWidget(content: "Search")
-        ],
-      ),
+    return TextFieldWidget(
+      controller: controller,
+      prefixIcon: Icons.search,
+      hintText: "Search ...",
+      radius: 16,
+      onChanged: onChanged,
     );
   }
 }

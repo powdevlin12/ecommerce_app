@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
     super.initState();
     _emailController.text = 'trandat1@gmail.com';
     _passwordController.text = 'Sgod123@';
+    _domainController.text = "192.168.1.13";
   }
 
   Future<void> _submitForm(String domain) async {

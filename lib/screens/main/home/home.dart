@@ -28,6 +28,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late ProductBloc productBloc;
   late CategoryBloc categoryBloc;
+  final TextEditingController controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -142,10 +144,12 @@ class _HomeState extends State<Home> {
                   ),
                   const AppBarHome(),
                   const SizedBox(height: 16),
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
-                    child: SearchWidget(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: kPaddingHorizontal),
+                    child: SearchWidget(
+                      controller: controller,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   BlocConsumer<CategoryBloc, CategoryState>(
@@ -167,12 +171,8 @@ class _HomeState extends State<Home> {
               debugPrint('state ${state.productState}');
               return RefreshIndicator(
                 onRefresh: _handleGetPublishProduct,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ProductList(
-                      listProduct: state.listProduct,
-                      status: state.productState),
-                ),
+                child: ProductList(
+                    listProduct: state.listProduct, status: state.productState),
               );
             },
           ),
