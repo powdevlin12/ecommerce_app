@@ -41,6 +41,10 @@ class _ProfileState extends State<Profile> {
     Navigator.pushNamed(context, AppRoutes.discount);
   }
 
+  void _handleNavigateMyDiscount() {
+    Navigator.pushNamed(context, AppRoutes.myDiscount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +73,7 @@ class _ProfileState extends State<Profile> {
                   const Gap(16.0),
                   ProfileOption(
                     title: 'My Discount',
-                    onPress: () {},
+                    onPress: _handleNavigateMyDiscount,
                   ),
                   const Gap(16.0),
                   ProfileOption(

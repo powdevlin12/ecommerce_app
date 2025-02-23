@@ -49,6 +49,7 @@ class Api {
   static String getListCategoryUrl = "$versionApi/category";
   static String getListProductBelongToCodeUrl =
       "$versionApi/discount/get-discount-belongto-code";
+  static String getListMyDiscount = "$versionApi/discount/get-discount-shop";
 
   static Future<ResultModel> requestSignUp({
     String email = "",
@@ -129,6 +130,18 @@ class Api {
       String code = ""}) async {
     String url =
         appendBranch("$getListProductBelongToCodeUrl/$code?limit=5&page=1");
+
+    final result = await httpManager.get(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestGetDiscountOfShop(
+      {String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+      String code = ""}) async {
+    String url = appendBranch(getListMyDiscount);
 
     final result = await httpManager.get(
       url: url,

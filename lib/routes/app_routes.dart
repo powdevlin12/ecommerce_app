@@ -9,6 +9,7 @@ class AppRoutes {
   static const String home = 'home';
   static const String category = 'category';
   static const String discount = 'discount';
+  static const String myDiscount = 'my-discount';
 
   // learn
   static const String stream = 'stream';

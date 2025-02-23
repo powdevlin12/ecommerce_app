@@ -49,6 +49,7 @@ class CategoryHome extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal, // Cuộn ngang
               itemCount: listCategory.length, // Số lượng item
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 CategoryModel category = listCategory[index];
                 return Container(

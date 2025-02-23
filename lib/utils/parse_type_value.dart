@@ -9,8 +9,8 @@ class ParseTypeData {
   }
 
   static List<String> ensureListString(dynamic input) {
-    if (input is List<String>) {
-      return input;
+    if (input is List) {
+      return input.map((e) => e.toString()).toList();
     }
     return [];
   }
