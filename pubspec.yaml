@@ -40,7 +40,7 @@ dependencies:
   equatable: ^2.0.7
   flutter_bloc: ^8.1.6
   cached_network_image: ^3.4.1
-  intl: ^0.20.1
+  intl: ^0.20.2
   flutter_svg: ^2.0.17
   gap: ^3.0.1
   rename_app: ^1.6.2

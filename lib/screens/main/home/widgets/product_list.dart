@@ -1,5 +1,4 @@
 import 'package:ercomerce_app/configs/colors.dart';
-import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';

@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/discount.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/screens/main/my-discount/widgets/list_my_discount.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -71,12 +72,17 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(kPaddingHorizontal),
+          padding: const EdgeInsets.only(
+              left: kPaddingHorizontal, right: kPaddingHorizontal, top: 16.0),
           child: Column(
             children: [
               const Gap(8),
               AppBarWidget(title: "My Discount", onPressBack: _onPressBack),
-              const Gap(16)
+              const Gap(16),
+              Expanded(
+                child: ListMyDiscount(
+                    listDiscount: _listDiscount, status: _isLoading),
+              )
             ],
           ),
         ),
