@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 class AppBarWidget extends StatelessWidget {
   final String title;
   final VoidCallback onPressBack;
+  final Widget? rightActionWidget;
   const AppBarWidget(
-      {super.key, required this.title, required this.onPressBack});
+      {super.key,
+      required this.title,
+      required this.onPressBack,
+      this.rightActionWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +23,7 @@ class AppBarWidget extends StatelessWidget {
           size: 20,
           weight: FontWeight.w500,
         ),
-        const SizedBox(
-          width: 16,
-        )
+        rightActionWidget ?? const SizedBox.shrink()
       ],
     );
   }
