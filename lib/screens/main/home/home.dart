@@ -16,6 +16,7 @@ import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -133,17 +134,17 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        top: true,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverToBoxAdapter(
-              child: Column(
+          top: true,
+          child: Column(
+            children: [
+              SizedBox(
+                height: Platform.isAndroid ? 32 : 8,
+              ),
+              const AppBarHome(),
+              const Gap(16.0),
+              Expanded(
+                  child: ListView(
                 children: [
-                  SizedBox(
-                    height: Platform.isAndroid ? 32 : 8,
-                  ),
-                  const AppBarHome(),
-                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: kPaddingHorizontal),
@@ -161,28 +162,26 @@ class _HomeState extends State<Home> {
                         );
                       }),
                   const SizedBox(height: 8),
+                  BlocConsumer<ProductBloc, ProductState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      debugPrint('state ${state.productState}');
+                      return RefreshIndicator(
+                        onRefresh: _handleGetPublishProduct,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kPaddingHorizontal),
+                          child: ProductList(
+                              listProduct: state.listProduct,
+                              status: state.productState),
+                        ),
+                      );
+                    },
+                  ),
                 ],
-              ),
-            ),
-          ],
-          body: BlocConsumer<ProductBloc, ProductState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              debugPrint('state ${state.productState}');
-              return RefreshIndicator(
-                onRefresh: _handleGetPublishProduct,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: kPaddingHorizontal),
-                  child: ProductList(
-                      listProduct: state.listProduct,
-                      status: state.productState),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
+              ))
+            ],
+          )),
     );
   }
 }
