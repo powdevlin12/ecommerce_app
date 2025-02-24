@@ -53,7 +53,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 onPressBack: _onBack,
                 rightActionWidget: const Icon(
                   Icons.heart_broken_outlined,
-                  size: 28.0,
+                  size: 24.0,
                 ),
               ),
               const Gap(16.0),
@@ -101,7 +101,10 @@ class _ProductDetailState extends State<ProductDetail> {
                   ],
                 ),
               ),
-              ButtonWidget(text: "Add To Card", onPressed: () {})
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: ButtonWidget(text: "Add To Card", onPressed: () {}),
+              )
             ],
           ),
         ),

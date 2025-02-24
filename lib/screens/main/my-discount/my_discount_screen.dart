@@ -73,10 +73,9 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: kPaddingHorizontal, right: kPaddingHorizontal, top: 16.0),
+              left: kPaddingHorizontal, right: kPaddingHorizontal),
           child: Column(
             children: [
-              const Gap(8),
               AppBarWidget(title: "My Discount", onPressBack: _onPressBack),
               const Gap(16),
               Expanded(

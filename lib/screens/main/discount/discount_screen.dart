@@ -90,7 +90,7 @@ class _DiscountScreenState extends State<DiscountScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: kPaddingHorizontal, right: kPaddingHorizontal, top: 24.0),
+              left: kPaddingHorizontal, right: kPaddingHorizontal),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
