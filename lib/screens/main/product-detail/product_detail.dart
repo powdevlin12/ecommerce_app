@@ -3,6 +3,7 @@ import 'package:ercomerce_app/blocs/product/product_bloc.dart';
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
+import 'package:ercomerce_app/screens/main/product-detail/widgets/product_quantity.dart';
 import 'package:ercomerce_app/utils/format.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
@@ -13,7 +14,7 @@ import 'package:gap/gap.dart';
 
 class ProductDetail extends StatefulWidget {
   final String productId;
-  const ProductDetail({super.key, required this.productId, required});
+  const ProductDetail({super.key, required this.productId});
 
   @override
   _ProductDetailState createState() => _ProductDetailState();
@@ -22,6 +23,8 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   late ProductBloc productBloc;
   late ProductModel productDetail;
+  int quantity = 1;
+
   void _onBack() {
     Navigator.pop(context);
   }
@@ -33,6 +36,19 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       productDetail = productBloc.state.listProduct
           .firstWhere((product) => product.productId == widget.productId);
+    });
+  }
+
+  void _onMinus() {
+    debugPrint("minus");
+    setState(() {
+      quantity = quantity - 1;
+    });
+  }
+
+  void _onPlus() {
+    setState(() {
+      quantity = quantity + 1;
     });
   }
 
@@ -91,6 +107,12 @@ class _ProductDetailState extends State<ProductDetail> {
                           formatCurrency(productDetail.product_price * 1.0),
                       color: primaryColor,
                       weight: FontWeight.bold,
+                    ),
+                    const Gap(8.0),
+                    ProductQuantity(
+                      quantity: quantity,
+                      onMinus: _onMinus,
+                      onPlus: _onPlus,
                     ),
                     const Gap(8.0),
                     TextWidget(
