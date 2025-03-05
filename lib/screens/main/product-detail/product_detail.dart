@@ -125,7 +125,16 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: ButtonWidget(text: "Add To Card", onPressed: () {}),
+                child: ButtonWidget(
+                  text: "Add To Card",
+                  onPressed: () {},
+                  leftWidget: TextWidget(
+                      size: 18,
+                      weight: FontWeight.bold,
+                      color: Colors.white,
+                      content: formatCurrency(
+                          (quantity * productDetail.product_price) * 1.0)),
+                ),
               )
             ],
           ),

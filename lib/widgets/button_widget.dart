@@ -12,6 +12,7 @@ class ButtonWidget extends StatelessWidget {
   final double? width;
   final TextStyle? textStyle;
   final bool? isLoading;
+  final Widget? leftWidget;
 
   const ButtonWidget(
       {super.key,
@@ -23,7 +24,8 @@ class ButtonWidget extends StatelessWidget {
       this.height = 50.0,
       this.width = double.infinity,
       this.textStyle,
-      this.isLoading = false});
+      this.isLoading = false,
+      this.leftWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +41,31 @@ class ButtonWidget extends StatelessWidget {
           ),
         ),
         child: !isLoading!
-            ? Text(
-                text,
-                style: textStyle ??
-                    TextStyle(
-                      color: textColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-              )
+            ? (leftWidget != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      leftWidget!,
+                      Text(
+                        text,
+                        style: textStyle ??
+                            TextStyle(
+                              color: textColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      )
+                    ],
+                  )
+                : Text(
+                    text,
+                    style: textStyle ??
+                        TextStyle(
+                          color: textColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ))
             : CircularProgressIndicator(
                 color: subBgColor,
               ),
