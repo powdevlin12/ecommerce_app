@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/screens/main/product-detail/widgets/product_quantity.dart';
+import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/utils/format.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
@@ -41,9 +42,18 @@ class _ProductDetailState extends State<ProductDetail> {
 
   void _onMinus() {
     debugPrint("minus");
-    setState(() {
-      quantity = quantity - 1;
-    });
+    if (quantity >= 2) {
+      setState(() {
+        quantity = quantity - 1;
+      });
+    } else {
+      showMyDialog(
+          context: context,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          content: "Không thể giảm số lượng nữa!");
+    }
   }
 
   void _onPlus() {

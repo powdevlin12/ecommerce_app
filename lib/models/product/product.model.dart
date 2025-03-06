@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:convert';
-
 import 'package:ercomerce_app/models/product/product_attributes.model.dart';
 import 'package:ercomerce_app/models/product/product_shop.model.dart';
 import 'package:ercomerce_app/models/product/product_variations.model.dart';
@@ -17,7 +15,7 @@ class ProductModel {
   final String product_type;
   final ProductShopModel product_shop;
   final ProductAttributesModel product_attributes;
-  final ProductVariationsModel product_variations;
+  final List<String> product_variations;
   final double product_rating_avg;
   final bool is_public;
   final bool is_draft;
@@ -61,7 +59,9 @@ class ProductModel {
         product_shop: ProductShopModel.empty(),
         product_thumb: ParseTypeData.ensureString(json['product_thumb']),
         product_type: ParseTypeData.ensureString(json['product_type']),
-        product_variations: ProductVariationsModel.empty(),
+        product_variations:
+            ParseTypeData.ensureListString(json['product_variations']),
+        // product_variations: ProductVariationsModel.empty(),
         updatedAt: ParseTypeData.ensureString(json['updatedAt']));
   }
 }

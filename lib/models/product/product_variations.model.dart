@@ -7,7 +7,7 @@ class ProductVariationsModel {
 
   factory ProductVariationsModel.fromJson(Map<String, dynamic> json) {
     return ProductVariationsModel(
-      variations: ParseTypeData.ensureListString(json['variations']),
+      variations: ParseTypeData.ensureListString(json['product_variations']),
     );
   }
 
