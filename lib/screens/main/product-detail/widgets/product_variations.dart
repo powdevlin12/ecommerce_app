@@ -28,9 +28,12 @@ class ProductVariations extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextWidget(
-                content: variationActive,
-                weight: FontWeight.bold,
+              InkWell(
+                onTap: onPressSelect,
+                child: TextWidget(
+                  content: variationActive,
+                  weight: FontWeight.bold,
+                ),
               ),
               const Gap(16),
               InkWell(

@@ -12,6 +12,7 @@ import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -39,7 +40,9 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       productDetail = productBloc.state.listProduct
           .firstWhere((product) => product.productId == widget.productId);
-      variantions = productDetail.product_variations[0];
+      variantions = productDetail.product_variations!.isNotEmpty
+          ? productDetail.product_variations![0]
+          : "No variations";
     });
   }
 
@@ -65,6 +68,12 @@ class _ProductDetailState extends State<ProductDetail> {
     });
   }
 
+  void _handleSelectVariation(String value) {
+    setState(() {
+      variantions = value;
+    });
+  }
+
   void _handleShowBottomSheetSelectVariations() {
     showModalBottomSheet<void>(
         context: context,
@@ -75,47 +84,80 @@ class _ProductDetailState extends State<ProductDetail> {
         ),
         backgroundColor: backgroundColor,
         builder: (BuildContext context) {
-          return SizedBox(
-            height: 300,
-            width: double.infinity,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Column(
-                children: [
-                  const Gap(12),
-                  const TextWidget(
-                    content: "Variations",
-                    size: 18.0,
-                    weight: FontWeight.bold,
-                  ),
-                  const Gap(12),
-                  Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const Gap(16),
-                      itemBuilder: (context, index) {
-                        String variantions =
-                            productDetail.product_variations[index];
-                        return Container(
-                          height: 56,
-                          decoration: BoxDecoration(
-                              color: subBgColor,
-                              borderRadius: BorderRadius.circular(24.0)),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: kPaddingHorizontal, vertical: 16.0),
-                          child: TextWidget(
-                            content: variantions,
-                            weight: FontWeight.bold,
-                          ),
-                        );
-                      },
-                      itemCount: productDetail.product_variations.length,
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            String localVariantion = variantions;
+            return SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Column(
+                  children: [
+                    const Gap(12),
+                    const TextWidget(
+                      content: "Variations",
+                      size: 18.0,
+                      weight: FontWeight.bold,
                     ),
-                  ),
-                ],
+                    const Gap(12),
+                    Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const Gap(16),
+                        itemBuilder: (context, index) {
+                          String curretVariantions =
+                              productDetail.product_variations?[index] ??
+                                  "No data";
+                          return InkWell(
+                            onTap: () => {
+                              _handleSelectVariation(curretVariantions),
+                              setState(() {
+                                localVariantion = curretVariantions;
+                              })
+                            },
+                            child: Container(
+                              height: 56,
+                              decoration: BoxDecoration(
+                                  color: curretVariantions == localVariantion
+                                      ? primaryColor
+                                      : subBgColor,
+                                  borderRadius: BorderRadius.circular(24.0)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: kPaddingHorizontal,
+                                  vertical: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  TextWidget(
+                                    content: curretVariantions,
+                                    weight: FontWeight.bold,
+                                    color: curretVariantions == localVariantion
+                                        ? Colors.white
+                                        : textColor,
+                                  ),
+                                  if (curretVariantions == localVariantion)
+                                    SvgPicture.asset(
+                                      "assets/check.svg",
+                                      width: 28.0,
+                                      height: 28.0,
+                                    )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount:
+                            productDetail.product_variations?.length ?? 0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          });
         });
   }
 

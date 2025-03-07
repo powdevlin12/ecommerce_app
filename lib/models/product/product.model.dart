@@ -15,7 +15,7 @@ class ProductModel {
   final String product_type;
   final ProductShopModel product_shop;
   final ProductAttributesModel product_attributes;
-  final List<String> product_variations;
+  final List<String>? product_variations;
   final double product_rating_avg;
   final bool is_public;
   final bool is_draft;
