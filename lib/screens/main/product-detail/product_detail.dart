@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/screens/main/product-detail/widgets/product_quantity.dart';
+import 'package:ercomerce_app/screens/main/product-detail/widgets/product_variations.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/utils/format.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
@@ -25,6 +26,7 @@ class _ProductDetailState extends State<ProductDetail> {
   late ProductBloc productBloc;
   late ProductModel productDetail;
   int quantity = 1;
+  late String variantions;
 
   void _onBack() {
     Navigator.pop(context);
@@ -37,6 +39,7 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       productDetail = productBloc.state.listProduct
           .firstWhere((product) => product.productId == widget.productId);
+      variantions = productDetail.product_variations[0];
     });
   }
 
@@ -60,6 +63,60 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       quantity = quantity + 1;
     });
+  }
+
+  void _handleShowBottomSheetSelectVariations() {
+    showModalBottomSheet<void>(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
+          ),
+        ),
+        backgroundColor: backgroundColor,
+        builder: (BuildContext context) {
+          return SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Column(
+                children: [
+                  const Gap(12),
+                  const TextWidget(
+                    content: "Variations",
+                    size: 18.0,
+                    weight: FontWeight.bold,
+                  ),
+                  const Gap(12),
+                  Expanded(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Gap(16),
+                      itemBuilder: (context, index) {
+                        String variantions =
+                            productDetail.product_variations[index];
+                        return Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                              color: subBgColor,
+                              borderRadius: BorderRadius.circular(24.0)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kPaddingHorizontal, vertical: 16.0),
+                          child: TextWidget(
+                            content: variantions,
+                            weight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                      itemCount: productDetail.product_variations.length,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -124,6 +181,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       onMinus: _onMinus,
                       onPlus: _onPlus,
                     ),
+                    const Gap(16),
+                    ProductVariations(
+                        variationActive: variantions,
+                        onPressSelect: _handleShowBottomSheetSelectVariations),
                     const Gap(8.0),
                     TextWidget(
                       content: productDetail.product_description,

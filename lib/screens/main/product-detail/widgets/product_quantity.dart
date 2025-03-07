@@ -19,6 +19,7 @@ class ProductQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 56,
       decoration: BoxDecoration(
           color: subBgColor, borderRadius: BorderRadius.circular(24.0)),
       padding: const EdgeInsets.symmetric(
