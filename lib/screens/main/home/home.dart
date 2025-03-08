@@ -9,6 +9,7 @@ import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/category.model.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/app_bar_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/category_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_list.dart';
@@ -129,6 +130,10 @@ class _HomeState extends State<Home> {
     return result;
   }
 
+  void _handleNavigateCart() {
+    Navigator.pushNamed(context, AppRoutes.cart);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +145,9 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: Platform.isAndroid ? 32 : 8,
               ),
-              const AppBarHome(),
+               AppBarHome(
+                onPressCart: _handleNavigateCart,
+              ),
               const Gap(16.0),
               Expanded(
                   child: ListView(

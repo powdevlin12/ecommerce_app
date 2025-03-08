@@ -29,4 +29,14 @@ class CartProductModel {
       price: ParseTypeData.ensureInt(json["price"]),
     );
   }
+
+  factory CartProductModel.empty() {
+    return const CartProductModel(
+        cartProductId: "",
+        name: "",
+        price: 0,
+        productId: "",
+        quantity: 0,
+        shopId: "");
+  }
 }

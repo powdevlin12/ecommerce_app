@@ -50,6 +50,7 @@ class Api {
   static String getListProductBelongToCodeUrl =
       "$versionApi/discount/get-discount-belongto-code";
   static String getListMyDiscount = "$versionApi/discount/get-discount-shop";
+  static String getListCartUrl = "$versionApi/cart";
 
   static Future<ResultModel> requestSignUp({
     String email = "",
@@ -142,6 +143,17 @@ class Api {
       {String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
       String code = ""}) async {
     String url = appendBranch(getListMyDiscount);
+
+    final result = await httpManager.get(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestGetListCart(
+      {String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG}) async {
+    String url = appendBranch(getListCartUrl);
 
     final result = await httpManager.get(
       url: url,

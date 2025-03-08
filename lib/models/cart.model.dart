@@ -10,7 +10,7 @@ class CartModel {
   final String cart_state;
   final String cart_userId;
   final int cart_count_product;
-  final CartProductModel cart_product;
+  final List<CartProductModel> cart_product;
 
   const CartModel({
     required this.cartId,
@@ -22,10 +22,22 @@ class CartModel {
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
     return CartModel(
-        cartId: ParseTypeData.ensureString(json["_id"]),
-        cart_state: ParseTypeData.ensureString(json["cart_state"]),
-        cart_userId: ParseTypeData.ensureString(json["cart_userId"]),
-        cart_count_product: ParseTypeData.ensureInt(json["cart_count_product"]),
-        cart_product: CartProductModel.fromJson(json['cart_product']));
+      cartId: ParseTypeData.ensureString(json["_id"]),
+      cart_state: ParseTypeData.ensureString(json["cart_state"]),
+      cart_userId: ParseTypeData.ensureString(json["cart_userId"]),
+      cart_count_product: ParseTypeData.ensureInt(json["cart_count_product"]),
+      cart_product: (json['cart_product'] as List)
+          .map((item) => CartProductModel.fromJson(item))
+          .toList(),
+    );
+  }
+
+  factory CartModel.empty() {
+    return const CartModel(
+        cartId: "",
+        cart_state: "",
+        cart_userId: "",
+        cart_count_product: 0,
+        cart_product: []);
   }
 }

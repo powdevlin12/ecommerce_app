@@ -14,4 +14,6 @@ class AppRoutes {
   static const String productDetail = "product-detail";
   // learn
   static const String stream = 'stream';
+  // cart
+  static const String cart = 'cart';
 }

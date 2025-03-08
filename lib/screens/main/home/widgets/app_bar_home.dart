@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppBarHome extends StatelessWidget {
-  const AppBarHome({super.key});
+  final GestureTapCallback onPressCart;
+  const AppBarHome({super.key, required this.onPressCart});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,13 @@ class AppBarHome extends StatelessWidget {
           ),
           SizedBox(
             height: 48,
-            child: SvgPicture.asset(
-              "assets/cart.svg",
-              width: 48.0,
-              height: 48.0,
+            child: InkWell(
+              onTap: onPressCart,
+              child: SvgPicture.asset(
+                "assets/cart.svg",
+                width: 48.0,
+                height: 48.0,
+              ),
             ),
           ),
         ],
