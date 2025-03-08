@@ -40,8 +40,8 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       productDetail = productBloc.state.listProduct
           .firstWhere((product) => product.productId == widget.productId);
-      variantions = productDetail.product_variations!.isNotEmpty
-          ? productDetail.product_variations![0]
+      variantions = productDetail.product_variations?.isNotEmpty == true
+          ? productDetail.product_variations!.first
           : "No variations";
     });
   }

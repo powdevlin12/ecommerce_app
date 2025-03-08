@@ -15,6 +15,7 @@ import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:io' show Platform;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -58,9 +59,16 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+
+    // Example of checking platform
+    if (Platform.isAndroid) {
+      _domainController.text = "192.168.1.13";
+    } else if (Platform.isIOS) {
+      _domainController.text = "localhost";
+    }
+
     _emailController.text = 'trandat1@gmail.com';
     _passwordController.text = 'Sgod123@';
-    _domainController.text = "192.168.1.13";
   }
 
   Future<void> _submitForm(String domain) async {

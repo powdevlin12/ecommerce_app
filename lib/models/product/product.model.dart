@@ -2,7 +2,6 @@
 
 import 'package:ercomerce_app/models/product/product_attributes.model.dart';
 import 'package:ercomerce_app/models/product/product_shop.model.dart';
-import 'package:ercomerce_app/models/product/product_variations.model.dart';
 import 'package:ercomerce_app/utils/parse_type_value.dart';
 
 class ProductModel {
@@ -48,7 +47,8 @@ class ProductModel {
         is_public: ParseTypeData.ensureBool(json["is_public"]),
         // product_attributes:
         // ProductAttributesModel.fromJson(json['product_attributes']),
-        product_attributes: ProductAttributesModel.empty(),
+        product_attributes:
+            ProductAttributesModel.fromJson(json['product_attributes']),
         product_description:
             ParseTypeData.ensureString(json['product_description']),
         product_name: ParseTypeData.ensureString(json['product_name']),
