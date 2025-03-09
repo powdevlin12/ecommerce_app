@@ -8,16 +8,17 @@ class CartProductModel {
   final String shopId;
   final int quantity;
   final String name;
+  final String image;
   final int price;
 
-  const CartProductModel({
-    required this.cartProductId,
-    required this.productId,
-    required this.shopId,
-    required this.quantity,
-    required this.name,
-    required this.price,
-  });
+  const CartProductModel(
+      {required this.cartProductId,
+      required this.productId,
+      required this.shopId,
+      required this.quantity,
+      required this.name,
+      required this.price,
+      required this.image});
 
   factory CartProductModel.fromJson(Map<String, dynamic> json) {
     return CartProductModel(
@@ -27,6 +28,7 @@ class CartProductModel {
       quantity: ParseTypeData.ensureInt(json["quantity"]),
       name: ParseTypeData.ensureString(json["name"]),
       price: ParseTypeData.ensureInt(json["price"]),
+      image: ParseTypeData.ensureString(json["image"]),
     );
   }
 
@@ -37,6 +39,7 @@ class CartProductModel {
         price: 0,
         productId: "",
         quantity: 0,
-        shopId: "");
+        shopId: "",
+        image: "");
   }
 }

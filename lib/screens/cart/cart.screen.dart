@@ -1,13 +1,15 @@
 import 'package:ercomerce_app/api/api.dart';
+import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/cart.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/screens/cart/widgets/item_product_cart.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
+import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:ercomerce_app/configs/colors.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -51,7 +53,6 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _handleGetListCart();
   }
@@ -63,6 +64,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.only(
@@ -72,19 +74,40 @@ class _CartScreenState extends State<CartScreen> {
             AppBarWidget(
               title: "Cart",
               onPressBack: _onBack,
-              rightActionWidget: const Icon(
-                Icons.heart_broken_outlined,
-                size: 24.0,
-              ),
             ),
-            const Gap(16.0),
+            const Gap(12.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextWidget(
+                  content: "Remove all",
+                  color: dangerColorToast,
+                  weight: FontWeight.w600,
+                ),
+              ],
+            ),
+            const Gap(12.0),
             Expanded(
               child: loading == StatusState.loading
                   ? Center(
                       child: CircularProgressIndicator(
                       backgroundColor: primaryColor,
                     ))
-                  : const TextWidget(content: 'abc'),
+                  : ListView.separated(
+                      itemCount: cart.cart_product.length,
+                      separatorBuilder: (context, index) => const Gap(12.0),
+                      itemBuilder: (context, index) {
+                        final item = cart.cart_product[index];
+                        return ItemProductCart(cartProduct: item);
+                      },
+                    ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ButtonWidget(
+                text: "Checkout",
+                onPressed: () {},
+              ),
             )
           ],
         ),
