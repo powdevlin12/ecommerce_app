@@ -98,26 +98,21 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                     children: [
                       TextFieldWidget(
                         hintText: 'Discount Name',
+                        label: 'Discount Name',
                         controller: _nameController,
                         validator: (value) => value?.isEmpty ?? true
                             ? 'Please enter discount name'
                             : null,
                       ),
                       const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: hexToColor(inputBackgroundColor),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: TextFormField(
-                          controller: _descriptionController,
-                          maxLines: 3,
-                          decoration: const InputDecoration(
-                              hintText: 'Description',
-                              border: InputBorder.none,
-                              hintStyle: TextStyle(fontSize: 14.0)),
-                        ),
+                      TextFieldWidget(
+                        controller: _descriptionController,
+                        maxLines: 2,
+                        hintText: 'Description',
+                        label: 'Description',
+                        validator: (value) => value?.isEmpty ?? true
+                            ? 'Please enter description'
+                            : null,
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(
@@ -155,6 +150,7 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                       const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Discount Value',
+                        label: 'Discount Value',
                         controller: _valueController,
                         keyboardType: TextInputType.number,
                         validator: (value) => value?.isEmpty ?? true
@@ -164,6 +160,7 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                       const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Discount Code',
+                        label: 'Discount Code',
                         controller: _codeController,
                         validator: (value) => value?.isEmpty ?? true
                             ? 'Please enter discount code'
@@ -218,6 +215,8 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                       const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Maximum Uses',
+                        label: 'Maximum Uses',
+                        
                         controller: _maxUsesController,
                         keyboardType: TextInputType.number,
                         validator: (value) => value?.isEmpty ?? true
@@ -227,6 +226,7 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                       const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Maximum Uses Per User',
+                        label: 'Maximum Uses Per User',
                         controller: _maxUsesPerUserController,
                         keyboardType: TextInputType.number,
                         validator: (value) => value?.isEmpty ?? true
@@ -236,6 +236,7 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                       const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Minimum Order Value',
+                        label: 'Minimum Order Value',
                         controller: _minOverValueController,
                         keyboardType: TextInputType.number,
                         validator: (value) => value?.isEmpty ?? true

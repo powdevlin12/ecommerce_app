@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:ercomerce_app/configs/colors.dart';
+import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,8 @@ class TextFieldWidget extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final TextInputAction? textInputAction;
   final double? height;
+  final String? label;
+  final int? maxLines;
 
   const TextFieldWidget(
       {super.key,
@@ -29,20 +32,27 @@ class TextFieldWidget extends StatelessWidget {
       this.onChanged,
       this.textInputAction,
       this.radius,
-      this.height});
+      this.height,
+      this.label,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48,
+      // height: height ?? 48,
       child: TextFormField(
         controller: controller,
+        maxLines: maxLines ?? 1,
         keyboardType: keyboardType,
         obscureText: obscureText,
         textInputAction: textInputAction,
         onChanged: onChanged,
         validator: validator,
         decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(fontSize: 14.0),
+          contentPadding: const EdgeInsets.symmetric(
+              vertical: 12, horizontal: kPaddingHorizontal),
           hintText: hintText ?? "",
           hintStyle:
               const TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
