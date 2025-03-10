@@ -27,7 +27,10 @@ class AppBarWidget extends StatelessWidget {
             size: 18,
             weight: FontWeight.w500,
           ),
-          rightActionWidget ?? const SizedBox.shrink()
+          rightActionWidget ??
+              const SizedBox(
+                width: 40.0,
+              )
         ],
       ),
     );

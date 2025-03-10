@@ -8,8 +8,10 @@ class AppRoutes {
   static const String main = 'main';
   static const String home = 'home';
   static const String category = 'category';
+  // discount
   static const String discount = 'discount';
   static const String myDiscount = 'my-discount';
+  static const String createDiscount = 'create-discount';
   // product
   static const String productDetail = "product-detail";
   // learn

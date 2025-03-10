@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/discount.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/my-discount/widgets/list_my_discount.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,17 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.createDiscount);
+        },
+        backgroundColor: primaryColor,
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
