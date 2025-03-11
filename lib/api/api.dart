@@ -49,7 +49,11 @@ class Api {
   static String getListCategoryUrl = "$versionApi/category";
   static String getListProductBelongToCodeUrl =
       "$versionApi/discount/get-discount-belongto-code";
+  // discount
   static String getListMyDiscount = "$versionApi/discount/get-discount-shop";
+  static String createDiscount = "$versionApi/discount";
+
+  // cart
   static String getListCartUrl = "$versionApi/cart";
 
   static Future<ResultModel> requestSignUp({
@@ -157,6 +161,48 @@ class Api {
 
     final result = await httpManager.get(
       url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestCreateDiscount({
+    required String name,
+    required String description,
+    required String type,
+    required double value,
+    required String code,
+    required String startDate,
+    required String endDate,
+    required int maxUses,
+    required int maxUsesPerUser,
+    required double minOrderValue,
+    required bool isActive,
+    required String appliesTo,
+    List<String> productIds = const [],
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    Map<String, dynamic> params = {
+      "discount_name": name,
+      "discount_description": description,
+      "discount_type": type,
+      "discount_value": value,
+      "discount_code": code,
+      "discount_start_date": startDate,
+      "discount_end_date": endDate,
+      "discount_max_uses": maxUses,
+      "discount_uses_count": 0,
+      "discount_max_uses_per_user": maxUsesPerUser,
+      "discount_min_over_value": minOrderValue,
+      "discount_is_active": isActive,
+      "discount_applies_to": appliesTo,
+      "discount_product_ids": productIds,
+    };
+
+    String url = appendBranch(createDiscount);
+    final result = await httpManager.post(
+      url: url,
+      data: params,
       cancelTag: tagRequest,
     );
     return ResultModel.fromJson(result);
