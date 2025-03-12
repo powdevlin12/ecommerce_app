@@ -51,7 +51,7 @@ class Api {
       "$versionApi/discount/get-discount-belongto-code";
   // discount
   static String getListMyDiscount = "$versionApi/discount/get-discount-shop";
-  static String createDiscount = "$versionApi/discount";
+  static String discount = "$versionApi/discount";
 
   // cart
   static String getListCartUrl = "$versionApi/cart";
@@ -199,8 +199,39 @@ class Api {
       "discount_product_ids": productIds,
     };
 
-    String url = appendBranch(createDiscount);
+    String url = appendBranch(discount);
     final result = await httpManager.post(
+      url: url,
+      data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestDeleteDiscount({
+    required String discountId,
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    String url = appendBranch("$discount/$discountId");
+    final result = await httpManager.delete(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestUpdateDiscountStatus({
+    required String discountId,
+    required bool isActive,
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    Map<String, dynamic> params = {
+      "discount_id": discountId,
+      "discount_is_active": isActive,
+    };
+
+    String url = appendBranch(discount);
+    final result = await httpManager.patch(
       url: url,
       data: params,
       cancelTag: tagRequest,

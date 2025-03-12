@@ -92,7 +92,9 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
               const Gap(16),
               Expanded(
                 child: ListMyDiscount(
-                    listDiscount: _listDiscount, status: _isLoading),
+                    listDiscount: _listDiscount,
+                    status: _isLoading,
+                    onRefresh: _fetchMyDiscount),
               )
             ],
           ),

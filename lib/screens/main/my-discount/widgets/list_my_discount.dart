@@ -9,9 +9,13 @@ import 'package:flutter/material.dart';
 class ListMyDiscount extends StatelessWidget {
   final List<DiscountModel> listDiscount;
   final StatusState status;
+  final Function() onRefresh;
 
   const ListMyDiscount(
-      {super.key, required this.listDiscount, required this.status});
+      {super.key,
+      required this.listDiscount,
+      required this.status,
+      required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,10 @@ class ListMyDiscount extends StatelessWidget {
                           const BouncingScrollPhysics(), // Hiệu ứng cuộn mượt
                       itemCount: listDiscount.length,
                       itemBuilder: (context, index) {
-                        return ItemMyDiscount(discount: listDiscount[index]);
+                        return ItemMyDiscount(
+                          discount: listDiscount[index],
+                          onRefresh: onRefresh,
+                        );
                       },
                     ),
                   ),
