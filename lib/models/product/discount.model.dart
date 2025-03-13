@@ -19,6 +19,7 @@ class DiscountModel {
   final bool discountIsActive;
   final String discountAppliesTo;
   final List<String> discountProductIds;
+  final bool isDelete;
 
   DiscountModel({
     required this.discountId,
@@ -38,6 +39,7 @@ class DiscountModel {
     required this.discountIsActive,
     required this.discountAppliesTo,
     required this.discountProductIds,
+    required this.isDelete,
   });
 
   factory DiscountModel.fromJson(Map<String, dynamic> json) {
@@ -66,6 +68,7 @@ class DiscountModel {
           ParseTypeData.ensureString(json["discount_applies_to"]),
       discountProductIds:
           ParseTypeData.ensureListString(json['discount_product_ids']),
+      isDelete: ParseTypeData.ensureBool(json["id_delete"]),
     );
   }
 
@@ -87,26 +90,27 @@ class DiscountModel {
     bool? discountIsActive,
     String? discountAppliesTo,
     List<String>? discountProductIds,
+    bool? isDelete,
   }) {
     return DiscountModel(
-      discountId: discountId ?? this.discountId,
-      discountName: discountName ?? this.discountName,
-      discountDescription: discountDescription ?? this.discountDescription,
-      discountType: discountType ?? this.discountType,
-      discountValue: discountValue ?? this.discountValue,
-      discountCode: discountCode ?? this.discountCode,
-      discountStartDate: discountStartDate ?? this.discountStartDate,
-      discountEndDate: discountEndDate ?? this.discountEndDate,
-      discountMaxUses: discountMaxUses ?? this.discountMaxUses,
-      discountUsesCount: discountUsesCount ?? this.discountUsesCount,
-      discountUsersUsed: discountUsersUsed ?? this.discountUsersUsed,
-      discountMaxUsesPerUser:
-          discountMaxUsesPerUser ?? this.discountMaxUsesPerUser,
-      discountMinOverValue: discountMinOverValue ?? this.discountMinOverValue,
-      discountShopId: discountShopId ?? this.discountShopId,
-      discountIsActive: discountIsActive ?? this.discountIsActive,
-      discountAppliesTo: discountAppliesTo ?? this.discountAppliesTo,
-      discountProductIds: discountProductIds ?? this.discountProductIds,
-    );
+        discountId: discountId ?? this.discountId,
+        discountName: discountName ?? this.discountName,
+        discountDescription: discountDescription ?? this.discountDescription,
+        discountType: discountType ?? this.discountType,
+        discountValue: discountValue ?? this.discountValue,
+        discountCode: discountCode ?? this.discountCode,
+        discountStartDate: discountStartDate ?? this.discountStartDate,
+        discountEndDate: discountEndDate ?? this.discountEndDate,
+        discountMaxUses: discountMaxUses ?? this.discountMaxUses,
+        discountUsesCount: discountUsesCount ?? this.discountUsesCount,
+        discountUsersUsed: discountUsersUsed ?? this.discountUsersUsed,
+        discountMaxUsesPerUser:
+            discountMaxUsesPerUser ?? this.discountMaxUsesPerUser,
+        discountMinOverValue: discountMinOverValue ?? this.discountMinOverValue,
+        discountShopId: discountShopId ?? this.discountShopId,
+        discountIsActive: discountIsActive ?? this.discountIsActive,
+        discountAppliesTo: discountAppliesTo ?? this.discountAppliesTo,
+        discountProductIds: discountProductIds ?? this.discountProductIds,
+        isDelete: isDelete ?? this.isDelete);
   }
 }

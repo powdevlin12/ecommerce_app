@@ -35,10 +35,13 @@ class ListMyDiscount extends StatelessWidget {
                           const BouncingScrollPhysics(), // Hiệu ứng cuộn mượt
                       itemCount: listDiscount.length,
                       itemBuilder: (context, index) {
-                        return ItemMyDiscount(
-                          discount: listDiscount[index],
-                          onRefresh: onRefresh,
-                        );
+                        DiscountModel discount = listDiscount[index];
+                        if (!discount.isDelete)
+                          return ItemMyDiscount(
+                            discount: discount,
+                            onRefresh: onRefresh,
+                          );
+                        return null;
                       },
                     ),
                   ),
