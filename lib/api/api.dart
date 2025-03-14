@@ -1,5 +1,6 @@
 import 'package:ercomerce_app/api/http_manager.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/models/service/model_result_pagination_api.dart';
 
 class Api {
   static final httpManager = HTTPManager();
@@ -143,16 +144,17 @@ class Api {
     return ResultModel.fromJson(result);
   }
 
-  static Future<ResultModel> requestGetDiscountOfShop(
+  static Future<ResultPaginationModel> requestGetDiscountOfShop(
       {String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
-      String code = ""}) async {
-    String url = appendBranch(getListMyDiscount);
+      int page = 1,
+      int limit = 10}) async {
+    String url = appendBranch("$getListMyDiscount?page=$page&limit=$limit");
 
     final result = await httpManager.get(
       url: url,
       cancelTag: tagRequest,
     );
-    return ResultModel.fromJson(result);
+    return ResultPaginationModel.fromJson(result);
   }
 
   static Future<ResultModel> requestGetListCart(

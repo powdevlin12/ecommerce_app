@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/discount.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
+import 'package:ercomerce_app/models/service/model_result_pagination_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/my-discount/widgets/list_my_discount.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
@@ -20,6 +21,10 @@ class MyDiscountScreen extends StatefulWidget {
 class _MyDiscountScreenState extends State<MyDiscountScreen> {
   StatusState _isLoading = StatusState.init;
   List<DiscountModel> _listDiscount = [];
+  int _currentPage = 1;
+  bool _hasMore = true;
+  bool _isLoadingMore = false;
+  static const int _limit = 10;
 
   void _onPressBack() {
     Navigator.pop(context);
@@ -31,40 +36,69 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
     super.initState();
   }
 
-  Future<void> _fetchMyDiscount() async {
+  Future<void> _fetchMyDiscount({bool isLoadMore = false}) async {
+    if (_isLoadingMore || (!isLoadMore && _isLoading == StatusState.loading))
+      return;
+
     setState(() {
-      _isLoading = StatusState.loading;
+      if (isLoadMore) {
+        _isLoadingMore = true;
+      } else {
+        _isLoading = StatusState.loading;
+      }
     });
 
     String tagRequestGetDiscount =
         Api.buildIncreaseTagRequestWithID("discount");
 
-    ResultModel result =
-        await Api.requestGetDiscountOfShop(tagRequest: tagRequestGetDiscount);
+    ResultPaginationModel result = await Api.requestGetDiscountOfShop(
+      tagRequest: tagRequestGetDiscount,
+      page: _currentPage,
+      limit: _limit,
+    );
 
     if (result.isSuccess) {
       try {
         List<DiscountModel> listDiscountResult =
-            (result.metadata as List).map((item) {
+            (result.metadata!.data as List).map((item) {
           return DiscountModel.fromJson(item as Map<String, dynamic>);
         }).toList();
+
         setState(() {
-          _listDiscount = listDiscountResult;
+          if (isLoadMore) {
+            _listDiscount.addAll(listDiscountResult);
+          } else {
+            _listDiscount = listDiscountResult;
+          }
+          _hasMore =
+              _currentPage < (result.metadata?.pagination.totalPages ?? 1);
+          _currentPage++;
         });
       } catch (e) {
         debugPrint('Lỗi khi ánh xạ dữ liệu: $e');
       }
     } else {
       setState(() {
-        _listDiscount = [];
+        if (!isLoadMore) {
+          _listDiscount = [];
+        }
+        _hasMore = false;
       });
     }
 
     setState(() {
-      _isLoading = StatusState.loadCompleted;
+      if (isLoadMore) {
+        _isLoadingMore = false;
+      } else {
+        _isLoading = StatusState.loadCompleted;
+      }
     });
+  }
 
-    // Gọi API tìm kiếm (dưới đây là giả lập)
+  Future<void> _onLoadMore() async {
+    if (_hasMore && !_isLoadingMore) {
+      await _fetchMyDiscount(isLoadMore: true);
+    }
   }
 
   @override
@@ -94,7 +128,15 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
                 child: ListMyDiscount(
                     listDiscount: _listDiscount,
                     status: _isLoading,
-                    onRefresh: _fetchMyDiscount),
+                    onRefresh: () {
+                      setState(() {
+                        _currentPage = 1;
+                        _hasMore = true;
+                      });
+                      _fetchMyDiscount();
+                    },
+                    onLoadMore: _onLoadMore,
+                    isLoadingMore: _isLoadingMore),
               )
             ],
           ),
