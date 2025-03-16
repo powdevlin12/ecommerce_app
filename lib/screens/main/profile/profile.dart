@@ -17,6 +17,40 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  late List<Map<String, dynamic>> profileOptions;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileOptions = [
+      {
+        'title': 'Discount',
+        'onPress': _handleNavigateDiscount,
+      },
+      {
+        'title': 'My Discount',
+        'onPress': _handleNavigateMyDiscount,
+      },
+      {
+        'title': 'Create Product',
+        'onPress': _handleCreateProduct,
+      },
+      {
+        'title': 'Payment',
+        'onPress': () {},
+      },
+      {
+        'title': 'Help',
+        'onPress': () {},
+      },
+      {
+        'title': 'Logout',
+        'onPress': _handleLogOut,
+      },
+    ];
+  }
+
   void _handleLogOut() {
     UserPreferences.removeAccessToken().then((value) {
       if (value == true) {
@@ -45,6 +79,10 @@ class _ProfileState extends State<Profile> {
     Navigator.pushNamed(context, AppRoutes.myDiscount);
   }
 
+  void _handleCreateProduct() {
+    Navigator.pushNamed(context, AppRoutes.productCreate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,36 +99,18 @@ class _ProfileState extends State<Profile> {
             ),
             const Gap(16),
             Expanded(
-              child: ListView(
+              child: ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  const Gap(40),
-                  ProfileOption(
-                    title: 'Discount',
-                    onPress: _handleNavigateDiscount,
-                  ),
-                  const Gap(16.0),
-                  ProfileOption(
-                    title: 'My Discount',
-                    onPress: _handleNavigateMyDiscount,
-                  ),
-                  const Gap(16.0),
-                  ProfileOption(
-                    title: 'Payment',
-                    onPress: () {},
-                  ),
-                  const Gap(16.0),
-                  ProfileOption(
-                    title: 'Help',
-                    onPress: () {},
-                  ),
-                  const Gap(16.0),
-                  ProfileOption(
-                    title: 'Logout',
-                    onPress: _handleLogOut,
-                  ),
-                ],
+                itemBuilder: (context, index) {
+                  final option = profileOptions[index];
+                  return ProfileOption(
+                      title: option['title'], onPress: option['onPress']);
+                },
+                itemCount: profileOptions.length,
+                separatorBuilder: (context, index) {
+                  return const Gap(16);
+                },
               ),
             ),
           ]),

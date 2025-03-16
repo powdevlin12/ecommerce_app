@@ -3,6 +3,7 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
+import 'package:ercomerce_app/widgets/dropdown_button_form_widget.dart';
 import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:ercomerce_app/api/api.dart';
@@ -142,40 +143,15 @@ class _DiscountCreateScreenState extends State<DiscountCreateScreen> {
                                 : null,
                           ),
                           const SizedBox(height: 16),
-                          DropdownButtonFormField<String>(
-                            value: _selectedDiscountType,
-                            decoration: InputDecoration(
-                              labelText: 'Discount Type',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(color: (primaryColor)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                    color: hexToColor(inputBackgroundColor)),
-                              ),
-                              fillColor: hexToColor(inputBackgroundColor),
-                              filled: true,
-                            ),
-                            items: _discountTypes.map((String type) {
-                              return DropdownMenuItem(
-                                value: type,
-                                child: TextWidget(
-                                  content: type,
-                                  size: 14.0,
-                                ),
-                              );
-                            }).toList(),
+                          DropdownButtonFormWidget(
+                            labelText: 'Discount Type',
+                            listOptions: _discountTypes,
                             onChanged: (String? newValue) {
                               setState(() {
                                 _selectedDiscountType = newValue!;
                               });
                             },
+                            selectedValue: _selectedDiscountType,
                           ),
                           const SizedBox(height: 16),
                           TextFieldWidget(

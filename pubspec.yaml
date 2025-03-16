@@ -44,6 +44,8 @@ dependencies:
   flutter_svg: ^2.0.17
   gap: ^3.0.1
   rename_app: ^1.6.2
+  image_picker: ^1.1.2
+  permission_handler: ^11.4.0
 
 dev_dependencies:
   flutter_test:

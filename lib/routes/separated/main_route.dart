@@ -7,6 +7,7 @@ import 'package:ercomerce_app/screens/main/discount/discount_screen.dart';
 import 'package:ercomerce_app/screens/main/home/home.dart';
 import 'package:ercomerce_app/screens/main/main_screen.dart';
 import 'package:ercomerce_app/screens/main/my-discount/my_discount_screen.dart';
+import 'package:ercomerce_app/screens/main/product-create/product_create.screen.dart';
 import 'package:ercomerce_app/screens/main/product-detail/product_detail.dart';
 
 Map<String, RouteType> mainRoutes = {
@@ -21,4 +22,5 @@ Map<String, RouteType> mainRoutes = {
   },
   AppRoutes.cart: (context, settings) => const CartScreen(),
   AppRoutes.createDiscount: (context, settings) => const DiscountCreateScreen(),
+  AppRoutes.productCreate: (context, settings) => const ProductCreateScreen(),
 };

@@ -14,6 +14,7 @@ class AppRoutes {
   static const String createDiscount = 'create-discount';
   // product
   static const String productDetail = "product-detail";
+  static const String productCreate = "product-create";
   // learn
   static const String stream = 'stream';
   // cart

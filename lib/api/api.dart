@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:ercomerce_app/api/http_manager.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/models/service/model_result_pagination_api.dart';
@@ -53,6 +56,8 @@ class Api {
   // discount
   static String getListMyDiscount = "$versionApi/discount/get-discount-shop";
   static String discount = "$versionApi/discount";
+  // product
+  static String product = "$versionApi/products";
 
   // cart
   static String getListCartUrl = "$versionApi/cart";
@@ -236,6 +241,55 @@ class Api {
     final result = await httpManager.patch(
       url: url,
       data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestCreateProduct({
+    required String productName,
+    required String productDescription,
+    required int productPrice,
+    required int productQuantity,
+    required String productManuifacturer,
+    required String productColor,
+    required String productModelType,
+    required String productType,
+    required File file,
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    // Map<String, dynamic> params = {
+    //   "product_name": productName,
+    //   "product_description": productDescription,
+    //   "product_type": productType,
+    //   "product_price": productPrice,
+    //   "product_quantity": productQuantity,
+    //   "product_attributes": {
+    //     "manuifacturer": productManuifacturer,
+    //     "color": productColor,
+    //     "model_type": productModelType
+    //   }
+    // };
+
+    FormData formData = FormData.fromMap({
+      'product_img': await MultipartFile.fromFile(file.path,
+          filename: DateTime.now().toString()),
+      "product_name": productName,
+      "product_description": productDescription,
+      "product_type": productType,
+      "product_price": productPrice,
+      "product_quantity": productQuantity,
+      "product_attributes": {
+        "manuifacturer": productManuifacturer,
+        "color": productColor,
+        "model_type": productModelType
+      }
+    });
+
+    String url = appendBranch(product);
+    final result = await httpManager.post(
+      url: url,
+      formData: formData,
       cancelTag: tagRequest,
     );
     return ResultModel.fromJson(result);
