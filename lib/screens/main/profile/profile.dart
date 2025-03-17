@@ -5,6 +5,7 @@ import 'package:ercomerce_app/enum/text_enum.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/profile/widgets/profile_option.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -85,6 +86,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(

@@ -2,6 +2,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_item.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +31,9 @@ class ProductList extends StatelessWidget {
                 weight: FontWeight.bold,
                 color: color ?? primaryColor,
               ),
-              const TextWidget(
+              TextWidget(
                 content: 'SeeAll',
-                size: 14,
+                size: Responsive.scale(12),
                 weight: FontWeight.w500,
               ),
             ],
@@ -47,7 +48,7 @@ class ProductList extends StatelessWidget {
                       child: CircularProgressIndicator(color: primaryColor)),
                 )
               : SizedBox(
-                  height: 300,
+                  height: Responsive.scale(240),
                   width: double
                       .infinity, // Đảm bảo ListView có chiều rộng full màn hình
                   child: ListView.separated(

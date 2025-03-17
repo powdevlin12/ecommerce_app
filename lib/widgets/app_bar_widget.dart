@@ -1,3 +1,4 @@
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/back_button_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Padding(
       padding: EdgeInsets.only(top: paddingTop ?? 8.0),
       child: Row(
@@ -24,8 +26,8 @@ class AppBarWidget extends StatelessWidget {
           BackButtonWidget(onPressed: onPressBack),
           TextWidget(
             content: title,
-            size: 18,
-            weight: FontWeight.w500,
+            size: Responsive.scale(16),
+            weight: FontWeight.bold,
           ),
           rightActionWidget ??
               const SizedBox(

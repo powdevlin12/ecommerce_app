@@ -14,6 +14,7 @@ import 'package:ercomerce_app/screens/main/home/widgets/app_bar_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/category_home.dart';
 import 'package:ercomerce_app/screens/main/home/widgets/product_list.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,6 +137,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -145,7 +147,7 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: Platform.isAndroid ? 32 : 8,
               ),
-               AppBarHome(
+              AppBarHome(
                 onPressCart: _handleNavigateCart,
               ),
               const Gap(16.0),

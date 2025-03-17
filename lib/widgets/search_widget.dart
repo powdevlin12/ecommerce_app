@@ -1,3 +1,4 @@
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class SearchWidget extends StatelessWidget {
       controller: controller,
       prefixIcon: Icons.search,
       hintText: "Search ...",
-      radius: 16,
+      radius: Responsive.scale(16),
       onChanged: onChanged,
     );
   }

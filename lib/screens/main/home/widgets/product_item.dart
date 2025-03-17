@@ -3,6 +3,7 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/models/product/product.model.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/utils/format.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,8 +16,8 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
-      width: 180,
+      height: Responsive.scale(240),
+      width: Responsive.scale(140),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -60,7 +61,7 @@ class ProductItem extends StatelessWidget {
                     child: TextWidget(
                       content: product.product_name,
                       color: textColor,
-                      size: 14.0,
+                      size: Responsive.scale(12),
                       // weight: FontWeight.w400,
                     ),
                   ),
@@ -69,7 +70,7 @@ class ProductItem extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                     child: TextWidget(
                       content: formatCurrency(product.product_price.toDouble()),
-                      size: 14.0,
+                      size: Responsive.scale(12),
                       weight: FontWeight.w700,
                     ),
                   ),

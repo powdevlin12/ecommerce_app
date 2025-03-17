@@ -4,6 +4,7 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/category.model.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class CategoryHome extends StatelessWidget {
   const CategoryHome(
       {super.key, required this.listCategory, required this.status});
 
-  static const double sizeItem = 60.0;
+  static double sizeItem = Responsive.scale(50);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,9 @@ class CategoryHome extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, AppRoutes.category);
                 },
-                child: const TextWidget(
+                child: TextWidget(
                   content: "SeeAll",
-                  size: 14,
+                  size: Responsive.scale(12),
                   weight: FontWeight.w500,
                 ),
               )
@@ -45,7 +46,7 @@ class CategoryHome extends StatelessWidget {
             height: 8,
           ),
           SizedBox(
-            height: sizeItem * 1.3, // Chiều cao cho ListView
+            height: sizeItem * 1.6, // Chiều cao cho ListView
             child: ListView.builder(
               scrollDirection: Axis.horizontal, // Cuộn ngang
               itemCount: listCategory.length, // Số lượng item
@@ -80,7 +81,10 @@ class CategoryHome extends StatelessWidget {
                       Center(
                         child: TextWidget(
                           content: category.name,
-                          size: 12,
+                          size: Responsive.scale(12),
+                          align: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       )
                     ],

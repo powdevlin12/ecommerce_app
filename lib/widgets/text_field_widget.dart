@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -50,12 +51,12 @@ class TextFieldWidget extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(fontSize: 14.0),
+          labelStyle: TextStyle(fontSize: Responsive.scale(14)),
           contentPadding: const EdgeInsets.symmetric(
               vertical: 12, horizontal: kPaddingHorizontal),
           hintText: hintText ?? "",
-          hintStyle:
-              const TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.w400, fontSize: Responsive.scale(14)),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
           border: OutlineInputBorder(

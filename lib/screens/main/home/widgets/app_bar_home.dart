@@ -1,3 +1,4 @@
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,29 +9,31 @@ class AppBarHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: Responsive.scale(16)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.center,
-            height: 48,
-            width: 48,
+            height: Responsive.scale(48),
+            width: Responsive.scale(48),
             decoration: const ShapeDecoration(
                 color: Colors.white,
                 shape: CircleBorder(
                     side: BorderSide(width: 2, color: Colors.blue))),
             child: SvgPicture.asset("assets/avatar.svg",
-                width: 30.0, height: 30.0, fit: BoxFit.scaleDown),
+                width: Responsive.scale(30),
+                height: Responsive.scale(30),
+                fit: BoxFit.scaleDown),
           ),
           SizedBox(
-            height: 48,
+            height: Responsive.scale(48),
             child: InkWell(
               onTap: onPressCart,
               child: SvgPicture.asset(
                 "assets/cart.svg",
-                width: 48.0,
-                height: 48.0,
+                width: Responsive.scale(48),
+                height: Responsive.scale(48),
               ),
             ),
           ),

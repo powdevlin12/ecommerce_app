@@ -7,6 +7,7 @@ import 'package:ercomerce_app/screens/main/product-detail/widgets/product_quanti
 import 'package:ercomerce_app/screens/main/product-detail/widgets/product_variations.dart';
 import 'package:ercomerce_app/utils/alert_notification.dart';
 import 'package:ercomerce_app/utils/format.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:ercomerce_app/widgets/button_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
@@ -96,9 +97,9 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Column(
                   children: [
                     const Gap(12),
-                    const TextWidget(
+                    TextWidget(
                       content: "Variations",
-                      size: 18.0,
+                      size: Responsive.scale(18),
                       weight: FontWeight.bold,
                     ),
                     const Gap(12),
@@ -117,7 +118,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               })
                             },
                             child: Container(
-                              height: 56,
+                              height: Responsive.scale(56),
                               decoration: BoxDecoration(
                                   color: curretVariantions == localVariantion
                                       ? primaryColor
@@ -141,8 +142,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                   if (curretVariantions == localVariantion)
                                     SvgPicture.asset(
                                       "assets/check.svg",
-                                      width: 28.0,
-                                      height: 28.0,
+                                      width: Responsive.scale(28),
+                                      height: Responsive.scale(28),
                                     )
                                 ],
                               ),
@@ -176,9 +177,9 @@ class _ProductDetailState extends State<ProductDetail> {
               AppBarWidget(
                 title: "Product detail",
                 onPressBack: _onBack,
-                rightActionWidget: const Icon(
+                rightActionWidget: Icon(
                   Icons.heart_broken_outlined,
-                  size: 24.0,
+                  size: Responsive.scale(24),
                 ),
               ),
               const Gap(16.0),
@@ -186,7 +187,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: ListView(
                   children: [
                     SizedBox(
-                      height: 248,
+                      height: Responsive.scale(248),
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
@@ -231,7 +232,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     TextWidget(
                       content: productDetail.product_description,
                       color: subTextColor,
-                      size: 14.0,
+                      size: Responsive.scale(14),
                     )
                   ],
                 ),
@@ -242,7 +243,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   text: "Add To Card",
                   onPressed: () {},
                   leftWidget: TextWidget(
-                      size: 18,
+                      size: Responsive.scale(18),
                       weight: FontWeight.bold,
                       color: Colors.white,
                       content: formatCurrency(
