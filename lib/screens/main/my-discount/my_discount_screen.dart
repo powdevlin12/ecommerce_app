@@ -7,6 +7,7 @@ import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/models/service/model_result_pagination_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/my-discount/widgets/list_my_discount.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -103,6 +104,7 @@ class _MyDiscountScreenState extends State<MyDiscountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       floatingActionButton: FloatingActionButton(

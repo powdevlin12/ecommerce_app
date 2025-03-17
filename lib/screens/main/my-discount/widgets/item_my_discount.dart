@@ -4,15 +4,16 @@ import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/models/product/discount.model.dart';
 import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/utils/format.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ItemMyDiscount extends StatelessWidget {
   final DiscountModel discount;
   final Function() onRefresh;
+  final double sizeText = Responsive.scale(18);
 
-  const ItemMyDiscount(
-      {super.key, required this.discount, required this.onRefresh});
+  ItemMyDiscount({super.key, required this.discount, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +64,12 @@ class ItemMyDiscount extends StatelessWidget {
                   content: "User used : ${discount.discountUsersUsed.length}",
                   size: 14,
                 ),
-                TextWidget(
-                  content:
-                      "Amount of product apply : ${discount.discountProductIds.length}",
-                  size: 14,
-                ),
               ],
+            ),
+            TextWidget(
+              content:
+                  "Amount of product apply : ${discount.discountProductIds.length}",
+              size: 14,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,50 +99,58 @@ class ItemMyDiscount extends StatelessWidget {
       ),
       builder: (context) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: Responsive.scale(0)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ListTile(
-                title: const TextWidget(
-                  content: "Chi tiết",
-                  size: 18.0,
-                  weight: FontWeight.w600,
-                  align: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: InkWell(
+                  child: TextWidget(
+                    content: "Chi tiết",
+                    weight: FontWeight.w600,
+                    align: TextAlign.center,
+                    size: sizeText,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context); // Đóng bottom sheet
+                    _confirmUpdateDiscountStatus(context);
+                  },
                 ),
-                onTap: () {
-                  Navigator.pop(context); // Đóng bottom sheet
-                  _confirmUpdateDiscountStatus(context);
-                },
               ),
               const Divider(),
-              ListTile(
-                title: TextWidget(
-                  content:
-                      discount.discountIsActive ? "Vô hiệu hóa" : "Kích hoạt",
-                  size: 18.0,
-                  weight: FontWeight.w600,
-                  align: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: InkWell(
+                  child: TextWidget(
+                    content:
+                        discount.discountIsActive ? "Vô hiệu hóa" : "Kích hoạt",
+                    weight: FontWeight.w600,
+                    align: TextAlign.center,
+                    size: sizeText,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context); // Đóng bottom sheet
+                    _confirmUpdateDiscountStatus(context);
+                  },
                 ),
-                onTap: () {
-                  Navigator.pop(context); // Đóng bottom sheet
-                  _confirmUpdateDiscountStatus(context);
-                },
               ),
               const Divider(),
-              ListTile(
-                title: TextWidget(
-                  content: "Xóa",
-                  color: dangerColorToast,
-                  size: 18.0,
-                  weight: FontWeight.w600,
-                  align: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: InkWell(
+                  child: TextWidget(
+                    content: "Xóa",
+                    weight: FontWeight.w600,
+                    align: TextAlign.center,
+                    size: sizeText,
+                    color: dangerColorToast,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context); // Đóng bottom sheet
+                    _confirmDeleteDiscount(context);
+                  },
                 ),
-                onTap: () {
-                  Navigator.pop(context); // Đóng bottom sheet
-                  _confirmDeleteDiscount(context);
-                },
-                contentPadding: const EdgeInsets.only(bottom: 16.0, left: 16.0),
               ),
             ],
           ),
