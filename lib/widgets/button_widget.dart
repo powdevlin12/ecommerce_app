@@ -1,5 +1,6 @@
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
+import 'package:ercomerce_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -8,7 +9,7 @@ class ButtonWidget extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final double? borderRadius;
-  final double? height;
+  final int? height;
   final double? width;
   final TextStyle? textStyle;
   final bool? isLoading;
@@ -20,8 +21,8 @@ class ButtonWidget extends StatelessWidget {
       required this.onPressed,
       this.backgroundColor,
       this.textColor = Colors.white,
-      this.borderRadius = 32.0,
-      this.height = 50.0,
+      this.borderRadius,
+      this.height,
       this.width = double.infinity,
       this.textStyle,
       this.isLoading = false,
@@ -29,15 +30,17 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return SizedBox(
-      height: height,
+      height: Responsive.scale(height ?? 50),
       width: width,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: (backgroundColor ?? primaryColor),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius!),
+            borderRadius:
+                BorderRadius.circular(borderRadius ?? Responsive.scale(32)),
           ),
         ),
         child: !isLoading!
@@ -50,10 +53,10 @@ class ButtonWidget extends StatelessWidget {
                         text,
                         style: textStyle ??
                             TextStyle(
-                              color: textColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                                color: textColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Regular'),
                       )
                     ],
                   )
@@ -61,10 +64,10 @@ class ButtonWidget extends StatelessWidget {
                     text,
                     style: textStyle ??
                         TextStyle(
-                          color: textColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                            color: textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Regular'),
                   ))
             : CircularProgressIndicator(
                 color: subBgColor,

@@ -99,7 +99,7 @@ class ItemMyDiscount extends StatelessWidget {
       ),
       builder: (context) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: Responsive.scale(0)),
+          padding: EdgeInsets.symmetric(vertical: Responsive.scale(12)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/utils/convert_color.dart';
@@ -40,7 +38,7 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: height ?? 48,
+      height: height ?? Responsive.scale(42),
       child: TextFormField(
         controller: controller,
         maxLines: maxLines ?? 1,
@@ -51,12 +49,15 @@ class TextFieldWidget extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(fontSize: Responsive.scale(14)),
+          labelStyle:
+              TextStyle(fontSize: Responsive.scale(14), fontFamily: 'Regular'),
           contentPadding: const EdgeInsets.symmetric(
               vertical: 12, horizontal: kPaddingHorizontal),
           hintText: hintText ?? "",
           hintStyle: TextStyle(
-              fontWeight: FontWeight.w400, fontSize: Responsive.scale(14)),
+              fontWeight: FontWeight.w400,
+              fontSize: Responsive.scale(14),
+              fontFamily: 'Regular'),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
           border: OutlineInputBorder(

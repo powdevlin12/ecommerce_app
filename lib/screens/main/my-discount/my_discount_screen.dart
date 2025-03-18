@@ -3,7 +3,6 @@ import 'package:ercomerce_app/configs/colors.dart';
 import 'package:ercomerce_app/configs/size.dart';
 import 'package:ercomerce_app/enum/status_enum.dart';
 import 'package:ercomerce_app/models/product/discount.model.dart';
-import 'package:ercomerce_app/models/service/model_result_api.dart';
 import 'package:ercomerce_app/models/service/model_result_pagination_api.dart';
 import 'package:ercomerce_app/routes/app_routes.dart';
 import 'package:ercomerce_app/screens/main/my-discount/widgets/list_my_discount.dart';

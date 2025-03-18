@@ -15,7 +15,7 @@ class CategoryHome extends StatelessWidget {
   const CategoryHome(
       {super.key, required this.listCategory, required this.status});
 
-  static double sizeItem = Responsive.scale(50);
+  static double sizeItem = Responsive.scale(56);
 
   @override
   Widget build(BuildContext context) {

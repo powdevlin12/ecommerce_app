@@ -165,7 +165,8 @@ class _SignupState extends State<Signup> {
                   child: Text.rich(
                     TextSpan(
                       text: 'Bạn quên mật khẩu? ',
-                      style: const TextStyle(color: Colors.black),
+                      style: const TextStyle(
+                          color: Colors.black, fontFamily: 'Regular'),
                       children: [
                         TextSpan(
                           text: 'Khôi phục ngay',

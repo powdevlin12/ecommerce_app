@@ -72,11 +72,12 @@ class ListMyDiscount extends StatelessWidget {
                           );
                         }
                         DiscountModel discount = listDiscount[index];
-                        if (!discount.isDelete)
+                        if (!discount.isDelete) {
                           return ItemMyDiscount(
                             discount: discount,
                             onRefresh: onRefresh,
                           );
+                        }
                         return null;
                       },
                     ),
