@@ -13,6 +13,7 @@ class AppRoutes {
   static const String myDiscount = 'my-discount';
   static const String createDiscount = 'create-discount';
   // product
+  static const String productMenu = "product";
   static const String productDetail = "product-detail";
   static const String productCreate = "product-create";
   // learn

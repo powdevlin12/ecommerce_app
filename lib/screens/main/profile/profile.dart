@@ -34,8 +34,8 @@ class _ProfileState extends State<Profile> {
         'onPress': _handleNavigateMyDiscount,
       },
       {
-        'title': 'Create Product',
-        'onPress': _handleCreateProduct,
+        'title': 'Product',
+        'onPress': _handleProduct,
       },
       {
         'title': 'Payment',
@@ -80,8 +80,8 @@ class _ProfileState extends State<Profile> {
     Navigator.pushNamed(context, AppRoutes.myDiscount);
   }
 
-  void _handleCreateProduct() {
-    Navigator.pushNamed(context, AppRoutes.productCreate);
+  void _handleProduct() {
+    Navigator.pushNamed(context, AppRoutes.productMenu);
   }
 
   @override

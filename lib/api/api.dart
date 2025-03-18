@@ -258,19 +258,6 @@ class Api {
     required File file,
     String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
   }) async {
-    // Map<String, dynamic> params = {
-    //   "product_name": productName,
-    //   "product_description": productDescription,
-    //   "product_type": productType,
-    //   "product_price": productPrice,
-    //   "product_quantity": productQuantity,
-    //   "product_attributes": {
-    //     "manuifacturer": productManuifacturer,
-    //     "color": productColor,
-    //     "model_type": productModelType
-    //   }
-    // };
-
     FormData formData = FormData.fromMap({
       'product_img': await MultipartFile.fromFile(file.path,
           filename: DateTime.now().toString()),
@@ -293,5 +280,18 @@ class Api {
       cancelTag: tagRequest,
     );
     return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultPaginationModel> requestGetProductOfShop(
+      {String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+      int page = 1,
+      int limit = 10}) async {
+    String url = appendBranch("$product?page=$page&limit=$limit");
+
+    final result = await httpManager.get(
+      url: url,
+      cancelTag: tagRequest,
+    );
+    return ResultPaginationModel.fromJson(result);
   }
 }

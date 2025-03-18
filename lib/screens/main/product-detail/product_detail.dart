@@ -192,7 +192,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
                         child: CachedNetworkImage(
-                          imageUrl: productDetail.product_thumb,
+                          imageUrl: productDetail.product_thumb!,
                           // height: 200,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -214,7 +214,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     const Gap(8.0),
                     TextWidget(
                       content:
-                          formatCurrency(productDetail.product_price * 1.0),
+                          formatCurrency(productDetail.product_price! * 1.0),
                       color: primaryColor,
                       weight: FontWeight.bold,
                     ),
@@ -247,7 +247,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       weight: FontWeight.bold,
                       color: Colors.white,
                       content: formatCurrency(
-                          (quantity * productDetail.product_price) * 1.0)),
+                          (quantity * productDetail.product_price!) * 1.0)),
                 ),
               )
             ],

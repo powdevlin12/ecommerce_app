@@ -40,7 +40,7 @@ class ProductItem extends StatelessWidget {
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(10.0)),
                       child: CachedNetworkImage(
-                        imageUrl: product.product_thumb,
+                        imageUrl: product.product_thumb!,
                         // height: 200,
                         width: double.infinity,
                         fit: BoxFit.cover,
@@ -69,7 +69,8 @@ class ProductItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                     child: TextWidget(
-                      content: formatCurrency(product.product_price.toDouble()),
+                      content:
+                          formatCurrency(product.product_price!.toDouble()),
                       size: Responsive.scale(12),
                       weight: FontWeight.w700,
                     ),
