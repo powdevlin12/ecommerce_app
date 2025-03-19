@@ -20,7 +20,10 @@ Map<String, RouteType> mainRoutes = {
   AppRoutes.productMenu: (context, settings) => const ProductMenuScreen(),
   AppRoutes.productDetail: (context, settings) {
     final args = settings.arguments as Map<String, dynamic>?;
-    return ProductDetail(productId: args?['productId']);
+    return ProductDetail(
+      productId: args?['productId'],
+      from: args?['from'],
+    );
   },
   AppRoutes.cart: (context, settings) => const CartScreen(),
   AppRoutes.createDiscount: (context, settings) => const DiscountCreateScreen(),

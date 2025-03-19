@@ -73,6 +73,7 @@ class ListProduct extends StatelessWidget {
                         ProductModel product = listProduct[index];
                         return ItemProduct(
                           product: product,
+                          onRefresh: onRefresh,
                         );
                       },
                     ),

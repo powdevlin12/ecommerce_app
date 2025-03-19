@@ -18,7 +18,8 @@ import 'package:gap/gap.dart';
 
 class ProductDetail extends StatefulWidget {
   final String productId;
-  const ProductDetail({super.key, required this.productId});
+  final String? from;
+  const ProductDetail({super.key, required this.productId, this.from});
 
   @override
   _ProductDetailState createState() => _ProductDetailState();
@@ -237,19 +238,20 @@ class _ProductDetailState extends State<ProductDetail> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: ButtonWidget(
-                  text: "Add To Card",
-                  onPressed: () {},
-                  leftWidget: TextWidget(
-                      size: Responsive.scale(18),
-                      weight: FontWeight.bold,
-                      color: Colors.white,
-                      content: formatCurrency(
-                          (quantity * productDetail.product_price!) * 1.0)),
-                ),
-              )
+              if (widget.from != "menu")
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: ButtonWidget(
+                    text: "Add To Card",
+                    onPressed: () {},
+                    leftWidget: TextWidget(
+                        size: Responsive.scale(18),
+                        weight: FontWeight.bold,
+                        color: Colors.white,
+                        content: formatCurrency(
+                            (quantity * productDetail.product_price!) * 1.0)),
+                  ),
+                )
             ],
           ),
         ),

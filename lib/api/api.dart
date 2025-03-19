@@ -58,6 +58,7 @@ class Api {
   static String discount = "$versionApi/discount";
   // product
   static String product = "$versionApi/products";
+  static String updateStatusProductUrl = "$versionApi/products/";
 
   // cart
   static String getListCartUrl = "$versionApi/cart";
@@ -240,6 +241,25 @@ class Api {
     String url = appendBranch(discount);
     final result = await httpManager.patch(
       url: url,
+      data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestUpdateProductStatus({
+    required String productId,
+    required bool isPublic,
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    Map<String, dynamic> params = {
+      "product_id": productId,
+    };
+
+    String url = appendBranch(
+        '$updateStatusProductUrl/${!isPublic ? "publish" : "unpublish"}');
+    final result = await httpManager.post(
+      url: '$url/$productId',
       data: params,
       cancelTag: tagRequest,
     );
