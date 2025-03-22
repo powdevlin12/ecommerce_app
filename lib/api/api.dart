@@ -39,6 +39,11 @@ class Api {
   static String loginUrl = "$versionApi/login";
   static String signUpUrl = "$versionApi/sign-up";
   static String getMeUrl = "$versionApi/me";
+
+  // ** user
+  static String signUpUserUrl = "$versionApi/users/sign-up";
+
+  // **
   static String getPublishProduct = "$versionApi/products/publish/all";
   static String getListCategoryUrl = "$versionApi/category";
   static String getListProductBelongToCodeUrl =
@@ -67,6 +72,25 @@ class Api {
     };
     final result = await httpManager.post(
       url: appendBranch(signUpUrl),
+      data: params,
+      cancelTag: tagRequest,
+    );
+    return ResultModel.fromJson(result);
+  }
+
+  static Future<ResultModel> requestSignUpUser({
+    String email = "",
+    String name = "",
+    String password = "",
+    String tagRequest = HTTPManager.DEFAULT_CANCEL_TAG,
+  }) async {
+    Map<String, String> params = {
+      "email": email,
+      "password": password,
+      "full_name": name,
+    };
+    final result = await httpManager.post(
+      url: appendBranch(signUpUserUrl),
       data: params,
       cancelTag: tagRequest,
     );

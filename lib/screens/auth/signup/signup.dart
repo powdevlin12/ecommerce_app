@@ -11,6 +11,7 @@ import 'package:ercomerce_app/widgets/screen_widget.dart';
 import 'package:ercomerce_app/widgets/text_field_widget.dart';
 import 'package:ercomerce_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -27,6 +28,7 @@ class _SignupState extends State<Signup> {
   final _confirmPasswordController = TextEditingController();
   String tagRequestSignUp = "";
   StatusState _loadingSignUp = StatusState.init;
+  bool _isOwnerShop = false;
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -41,8 +43,11 @@ class _SignupState extends State<Signup> {
         _loadingSignUp = StatusState.loading;
       });
 
-      ResultModel result =
-          await Api.requestSignUp(email: email, name: name, password: password);
+      ResultModel result = _isOwnerShop
+          ? await Api.requestSignUp(
+              email: email, name: name, password: password)
+          : await Api.requestSignUpUser(
+              email: email, name: name, password: password);
 
       if (result.isSuccess) {
         setState(() {
@@ -55,7 +60,9 @@ class _SignupState extends State<Signup> {
               Navigator.pop(context);
               // _onGoToLogin();
             },
-            content: "Đăng ký thành công !");
+            content: _isOwnerShop
+                ? "Đăng ký chủ shop thành công !"
+                : "Đăng ký ngườin dùng thành công !");
       } else {
         setState(() {
           _loadingSignUp = StatusState.loadFailed;
@@ -104,6 +111,7 @@ class _SignupState extends State<Signup> {
               // Form fields
               TextFieldWidget(
                 hintText: 'Họ và tên của bạn',
+                label: 'Họ và tên của bạn',
                 controller: _nameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -115,6 +123,7 @@ class _SignupState extends State<Signup> {
               const SizedBox(height: 16),
               TextFieldWidget(
                   hintText: 'Nhập địa chỉ email',
+                  label: 'Địa chỉ email',
                   controller: _emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -127,6 +136,7 @@ class _SignupState extends State<Signup> {
               const SizedBox(height: 16),
               TextFieldWidget(
                   hintText: 'Nhập mật khẩu',
+                  label: 'Mật khẩu',
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
@@ -138,6 +148,7 @@ class _SignupState extends State<Signup> {
               const SizedBox(height: 16),
               TextFieldWidget(
                   hintText: 'Nhập lại mật khẩu',
+                  label: 'Xác nhận mật khẩu',
                   obscureText: true,
                   controller: _confirmPasswordController,
                   validator: (value) {
@@ -148,7 +159,22 @@ class _SignupState extends State<Signup> {
                     }
                     return null;
                   }),
-              const SizedBox(height: 32),
+
+              Row(
+                children: [
+                  const Text('Bạn là chủ shop'),
+                  const Gap(12.0),
+                  Switch(
+                    value: _isOwnerShop,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _isOwnerShop = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
 
               // Continue button
               ButtonWidget(

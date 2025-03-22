@@ -142,13 +142,14 @@ class _LoginState extends State<Login> {
                 TextFieldWidget(
                   hintText: 'Nhập tên miền...',
                   controller: _domainController,
-                  height: 56,
+                  label: "Tên miền",
                 ),
                 SizedBox(
                   height: spacing,
                 ),
                 TextFieldWidget(
                   hintText: 'Email của bạn',
+                  label: 'Email',
                   controller: _emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -162,8 +163,8 @@ class _LoginState extends State<Login> {
                   height: spacing,
                 ),
                 TextFieldWidget(
-                    height: 56,
                     hintText: 'Nhập mật khẩu',
+                    label: 'Mật khẩu',
                     obscureText: true,
                     controller: _passwordController,
                     validator: (value) {

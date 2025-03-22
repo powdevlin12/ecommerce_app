@@ -38,7 +38,7 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? Responsive.scale(42),
+      height: height ?? Responsive.scale(56),
       child: TextFormField(
         controller: controller,
         maxLines: maxLines ?? 1,
