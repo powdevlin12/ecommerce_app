@@ -9,23 +9,13 @@ class Api {
   static final httpManager = HTTPManager();
   static const String https = "https://";
   static const String http = "http://";
-  static String domain = "localhost";
+  static String domain = "http://localhost";
   static String accessToken = "";
   static String shopId = "";
-
-  static String getProtocol() {
-    const bool useSsl = false;
-    String protocol = (useSsl ? Api.https : Api.http);
-    return protocol;
-  }
-
-  static String localHost() {
-    // return "restaurantbe-production.up.railway.app";
-    return domain;
-  }
+  static bool useSsl = true;
 
   static String branchGetter() {
-    String branch = "${getProtocol()}${domain ?? localHost()}:3012";
+    String branch = !(domain.startsWith("https")) ? "$domain:3012" : domain;
     return branch;
   }
 

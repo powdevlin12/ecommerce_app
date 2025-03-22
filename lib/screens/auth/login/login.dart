@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io' show Platform;
 
+import 'package:gap/gap.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -29,6 +31,7 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _domainController = TextEditingController();
+  bool _isOwnerShop = true;
 
   final double spacing = 16.0;
   StatusState _loadingLogin = StatusState.init;
@@ -62,9 +65,9 @@ class _LoginState extends State<Login> {
 
     // Example of checking platform
     if (Platform.isAndroid) {
-      _domainController.text = "192.168.1.13";
+      _domainController.text = "http://192.168.1.13";
     } else if (Platform.isIOS) {
-      _domainController.text = "localhost";
+      _domainController.text = "http://localhost";
     }
 
     _emailController.text = 'trandat1@gmail.com';
@@ -169,6 +172,20 @@ class _LoginState extends State<Login> {
                       }
                       return null;
                     }),
+                Row(
+                  children: [
+                    const Text('Bạn là chủ shop'),
+                    const Gap(12.0),
+                    Switch(
+                      value: _isOwnerShop,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isOwnerShop = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: spacing,
                 ),
